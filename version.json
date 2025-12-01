@@ -1,9 +1,19 @@
 {
-    "version": "2.6.0",
+    "version": "2.7.0",
     "build": "20251201",
     "release_date": "2025-12-01",
-    "codename": "SuperNova",
+    "codename": "Mega Nova X",
     "changelog": [
+        {
+            "version": "2.7.0",
+            "date": "2025-12-01",
+            "type": "minor",
+            "changes": [
+                "Se mejoro hoy si por completo sistema de updates",
+                "Se agrego la subida y creación de tags con sus archivos",
+                "Ahora se mejorara la instalación de updates en archivos des actualizados o con versión menor."
+            ]
+        },
         {
             "version": "2.6.0",
             "date": "2025-12-01",
