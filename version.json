@@ -1,9 +1,17 @@
 {
-    "version": "2.10.0",
+    "version": "2.10.1",
     "build": "20251202",
     "release_date": "2025-12-01",
-    "codename": "Megadolon ",
+    "codename": "Megaladon X Twist",
     "changelog": [
+        {
+            "version": "2.10.1",
+            "date": "2025-12-01",
+            "type": "minor",
+            "changes": [
+                "Se arreglo el problema que versión.json no se actualiza"
+            ]
+        },
         {
             "version": "2.10.0",
             "date": "2025-12-01",
