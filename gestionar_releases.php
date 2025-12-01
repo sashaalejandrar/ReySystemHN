@@ -395,8 +395,117 @@ if ($result) {
   </div>
 </div>
 
+<!-- Modal de Confirmación -->
+<div id="confirmModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full shadow-2xl">
+    <div class="p-6">
+      <div class="flex items-center gap-4 mb-4">
+        <div id="confirmIcon" class="w-12 h-12 rounded-full flex items-center justify-center">
+          <span class="material-symbols-outlined text-2xl"></span>
+        </div>
+        <div>
+          <h3 id="confirmTitle" class="text-xl font-bold text-slate-900 dark:text-white"></h3>
+          <p id="confirmMessage" class="text-sm text-slate-600 dark:text-slate-400 mt-1"></p>
+        </div>
+      </div>
+      <div class="flex gap-3 justify-end">
+        <button onclick="closeConfirmModal()" 
+          class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+          Cancelar
+        </button>
+        <button id="confirmButton" 
+          class="px-4 py-2 rounded-lg text-white font-medium transition-colors">
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // Gestión de Releases - JavaScript Inline
+
+// Sistema de confirmación con modal
+let confirmCallback = null;
+
+function showConfirm(title, message, type = 'warning') {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('confirmModal');
+        const icon = document.getElementById('confirmIcon');
+        const iconSpan = icon.querySelector('.material-symbols-outlined');
+        const titleEl = document.getElementById('confirmTitle');
+        const messageEl = document.getElementById('confirmMessage');
+        const confirmBtn = document.getElementById('confirmButton');
+        
+        // Configurar según tipo
+        const configs = {
+            warning: {
+                iconBg: 'bg-yellow-100 dark:bg-yellow-900/30',
+                iconColor: 'text-yellow-600 dark:text-yellow-400',
+                icon: 'warning',
+                btnColor: 'bg-yellow-600 hover:bg-yellow-700'
+            },
+            danger: {
+                iconBg: 'bg-red-100 dark:bg-red-900/30',
+                iconColor: 'text-red-600 dark:text-red-400',
+                icon: 'delete',
+                btnColor: 'bg-red-600 hover:bg-red-700'
+            },
+            info: {
+                iconBg: 'bg-blue-100 dark:bg-blue-900/30',
+                iconColor: 'text-blue-600 dark:text-blue-400',
+                icon: 'info',
+                btnColor: 'bg-blue-600 hover:bg-blue-700'
+            },
+            success: {
+                iconBg: 'bg-green-100 dark:bg-green-900/30',
+                iconColor: 'text-green-600 dark:text-green-400',
+                icon: 'check_circle',
+                btnColor: 'bg-green-600 hover:bg-green-700'
+            }
+        };
+        
+        const config = configs[type] || configs.warning;
+        
+        // Aplicar estilos
+        icon.className = `w-12 h-12 rounded-full flex items-center justify-center ${config.iconBg}`;
+        iconSpan.className = `material-symbols-outlined text-2xl ${config.iconColor}`;
+        iconSpan.textContent = config.icon;
+        confirmBtn.className = `px-4 py-2 rounded-lg text-white font-medium transition-colors ${config.btnColor}`;
+        
+        // Configurar contenido
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+        
+        // Configurar callback
+        confirmCallback = () => {
+            resolve(true);
+            closeConfirmModal();
+        };
+        
+        // Mostrar modal
+        modal.classList.remove('hidden');
+        
+        // Manejar cancelación
+        const cancelHandler = () => {
+            resolve(false);
+            closeConfirmModal();
+        };
+        
+        // Agregar event listener temporal
+        modal.dataset.cancelHandler = 'true';
+    });
+}
+
+function closeConfirmModal() {
+    document.getElementById('confirmModal').classList.add('hidden');
+    confirmCallback = null;
+}
+
+// Ejecutar callback de confirmación
+document.getElementById('confirmButton').addEventListener('click', () => {
+    if (confirmCallback) confirmCallback();
+});
 
 function openNewReleaseModal() {
     document.getElementById('newReleaseModal').classList.remove('hidden');
@@ -537,9 +646,13 @@ function viewRelease(release) {
 
 // Publicar release
 async function publishRelease(id) {
-    if (!confirm('¿Estás seguro de publicar esta release? Esto actualizará version.json y creará el commit en Git.')) {
-        return;
-    }
+    const confirmed = await showConfirm(
+        '¿Publicar Release?',
+        'Esto actualizará version.json, creará el commit en Git y lo subirá a GitHub.',
+        'warning'
+    );
+    
+    if (!confirmed) return;
     
     const btn = event.target;
     const originalHTML = btn.innerHTML;
@@ -580,9 +693,13 @@ async function publishRelease(id) {
 
 // Subir a GitHub
 async function uploadToGitHub(id) {
-    if (!confirm('¿Subir esta release a GitHub? Se creará el tag y la release automáticamente.')) {
-        return;
-    }
+    const confirmed = await showConfirm(
+        '¿Subir a GitHub?',
+        'Se creará el tag y la release automáticamente con el archivo adjunto.',
+        'info'
+    );
+    
+    if (!confirmed) return;
     
     const btn = event.target;
     const originalHTML = btn.innerHTML;
@@ -617,9 +734,13 @@ async function uploadToGitHub(id) {
 
 // Eliminar release
 async function deleteRelease(id) {
-    if (!confirm('¿Estás seguro de eliminar esta release? Esta acción no se puede deshacer.')) {
-        return;
-    }
+    const confirmed = await showConfirm(
+        '¿Eliminar Release?',
+        'Esta acción no se puede deshacer. Se eliminará la release y su archivo.',
+        'danger'
+    );
+    
+    if (!confirmed) return;
     
     try {
         const response = await fetch(`api_releases.php?action=delete&id=${id}`, {

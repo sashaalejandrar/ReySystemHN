@@ -229,14 +229,18 @@ function publishRelease($conexion, $id) {
                 // No es un repositorio Git - inicializar
                 exec("git init 2>&1", $init_output, $init_code);
                 $git_result[] = "Git init: " . implode("\n", $init_output);
-                
-                // Verificar si hay remote configurado
-                exec("git remote get-url origin 2>&1", $remote_check, $remote_exists);
-                
-                if ($remote_exists !== 0) {
-                    $git_result[] = "⚠️ No hay remote configurado. Configura con: git remote add origin https://github.com/TU-USUARIO/ReySystem.git";
-                }
+                logRelease("Git inicializado");
             }
+            
+            // Verificar si hay remote configurado (siempre)
+            exec("git remote get-url origin 2>&1", $remote_check, $remote_exists);
+            
+            if ($remote_exists !== 0) {
+                logRelease("ERROR: No hay remote configurado");
+                throw new Exception('No hay remote configurado. Ejecuta: git remote add origin https://github.com/sashaalejandrar/ReySystemHN.git');
+            }
+            
+            logRelease("Remote configurado: " . (isset($remote_check[0]) ? $remote_check[0] : 'origin'));
             
             // 1. Add version.json
             logRelease("Ejecutando: git add version.json");
