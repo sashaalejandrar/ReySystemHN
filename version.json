@@ -1,9 +1,17 @@
 {
-    "version": "2.8.0",
-    "build": "20251201",
+    "version": "2.9.0",
+    "build": "20251202",
     "release_date": "2025-12-01",
-    "codename": "MindNight Nova",
+    "codename": "TokyoGarden",
     "changelog": [
+        {
+            "version": "2.9.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Hoy si se soluciono todo espero."
+            ]
+        },
         {
             "version": "2.8.0",
             "date": "2025-12-01",
