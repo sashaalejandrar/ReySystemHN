@@ -1,6 +1,11 @@
 #!/bin/bash
 # Script para publicar release - evita problemas de librerías de PHP
 
+# Configurar variables de entorno para evitar problemas de librerías
+export HOME=/tmp
+export GIT_CONFIG_NOSYSTEM=1
+unset LD_LIBRARY_PATH
+
 RELEASE_ID=$1
 DB_NAME="tiendasrey"
 DB_USER="root"
