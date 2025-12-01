@@ -20,6 +20,13 @@ if ($conexion->connect_error) {
 $usuario = $_SESSION['usuario'];
 $action = $_GET['action'] ?? '';
 
+// Función para logging
+function logRelease($message) {
+    $log_file = __DIR__ . '/logs/releases.log';
+    $timestamp = date('Y-m-d H:i:s');
+    file_put_contents($log_file, "[$timestamp] $message\n", FILE_APPEND);
+}
+
 switch ($action) {
     case 'create':
         createRelease($conexion, $usuario);
@@ -208,9 +215,12 @@ function publishRelease($conexion, $id) {
         $git_result = [];
         $git_success = false;
         
+        logRelease("Iniciando publicación de release {$git_tag}");
+        
         if (function_exists('exec')) {
             // Cambiar al directorio del proyecto
             chdir(__DIR__);
+            logRelease("Directorio: " . getcwd());
             
             // Verificar si es un repositorio Git
             exec("git rev-parse --git-dir 2>&1", $git_check, $git_exists);
@@ -229,31 +239,43 @@ function publishRelease($conexion, $id) {
             }
             
             // 1. Add version.json
+            logRelease("Ejecutando: git add version.json");
             exec("git add version.json 2>&1", $output1, $code1);
-            $git_result[] = "git add: " . implode("\n", $output1);
+            $git_result[] = "git add: " . (empty($output1) ? "(vacío)" : implode("\n", $output1)) . " [código: $code1]";
+            logRelease("git add código: $code1");
             
             // 2. Commit
             $commit_msg = "Release {$git_tag}" . ($release['codename'] ? " - {$release['codename']}" : "");
+            logRelease("Ejecutando: git commit -m '$commit_msg'");
             exec("git commit -m '{$commit_msg}' 2>&1", $output2, $code2);
-            $git_result[] = "git commit: " . implode("\n", $output2);
+            $git_result[] = "git commit: " . implode("\n", $output2) . " [código: $code2]";
+            logRelease("git commit código: $code2, output: " . implode(", ", $output2));
             
             // 3. Tag
             $tag_msg = $release['codename'] ?: "Release {$git_tag}";
+            logRelease("Ejecutando: git tag -a {$git_tag} -m '$tag_msg'");
             exec("git tag -a {$git_tag} -m '{$tag_msg}' 2>&1", $output3, $code3);
-            $git_result[] = "git tag: " . implode("\n", $output3);
+            $git_result[] = "git tag: " . (empty($output3) ? "(vacío)" : implode("\n", $output3)) . " [código: $code3]";
+            logRelease("git tag código: $code3");
             
             // 4. Push main
+            logRelease("Ejecutando: git push origin main");
             exec("git push origin main 2>&1", $output4, $code4);
-            $git_result[] = "git push main: " . implode("\n", $output4);
+            $git_result[] = "git push main: " . implode("\n", $output4) . " [código: $code4]";
+            logRelease("git push main código: $code4");
             
             // 5. Push tag
+            logRelease("Ejecutando: git push origin {$git_tag}");
             exec("git push origin {$git_tag} 2>&1", $output5, $code5);
             $git_result[] = "git push tag: " . implode("\n", $output5);
             
             $git_success = ($code5 === 0);
+            logRelease("git push tag código: $code5, success: " . ($git_success ? 'true' : 'false'));
             
             // Crear release en GitHub con gh CLI
+            logRelease("Verificando GitHub CLI...");
             exec("which gh 2>&1", $gh_check, $gh_exists);
+            logRelease("GitHub CLI existe: " . ($gh_exists === 0 ? 'true' : 'false'));
             
             if ($gh_exists === 0) {
                 // Preparar changelog para GitHub
@@ -267,6 +289,7 @@ function publishRelease($conexion, $id) {
                 // Crear archivo temporal con notas
                 $temp_notes = tempnam(sys_get_temp_dir(), 'gh_notes_');
                 file_put_contents($temp_notes, $github_notes);
+                logRelease("Notas guardadas en: $temp_notes");
                 
                 // Comando base
                 $gh_cmd = "gh release create {$git_tag} --title '{$commit_msg}' --notes-file {$temp_notes}";
@@ -274,11 +297,14 @@ function publishRelease($conexion, $id) {
                 // Agregar archivo si existe
                 if ($release['file_path'] && file_exists($release['file_path'])) {
                     $gh_cmd .= " " . escapeshellarg($release['file_path']);
+                    logRelease("Archivo a subir: {$release['file_path']}");
                 }
                 
                 // Ejecutar
+                logRelease("Ejecutando: $gh_cmd");
                 exec($gh_cmd . " 2>&1", $output6, $code6);
-                $git_result[] = "GitHub Release: " . implode("\n", $output6);
+                $git_result[] = "GitHub Release: " . implode("\n", $output6) . " [código: $code6]";
+                logRelease("gh release create código: $code6, output: " . implode(", ", $output6));
                 
                 // Limpiar archivo temporal
                 unlink($temp_notes);
