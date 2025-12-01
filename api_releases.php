@@ -7,12 +7,18 @@
 if (file_exists(__DIR__ . '/.env')) {
     $env_lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($env_lines as $line) {
-        if (strpos(trim($line), '#') === 0) continue;
-        list($key, $value) = explode('=', $line, 2);
-        $key = trim($key);
-        $value = trim($value);
-        if (!getenv($key)) {
+        $line = trim($line);
+        if (empty($line) || strpos($line, '#') === 0) continue;
+        
+        if (strpos($line, '=') !== false) {
+            list($key, $value) = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+            
+            // Establecer en putenv y $_ENV
             putenv("$key=$value");
+            $_ENV[$key] = $value;
+            $_SERVER[$key] = $value;
         }
     }
 }
@@ -333,21 +339,49 @@ function publishRelease($conexion, $id) {
             logRelease("GitHub CLI existe: " . ($gh_exists === 0 ? 'true' : 'false'));
             
             if ($gh_exists === 0) {
-                // Obtener token de GitHub
-                $gh_token = getenv('GH_TOKEN') ?: getenv('GITHUB_TOKEN');
+                // Obtener token de GitHub desde múltiples fuentes
+                $gh_token = null;
                 
+                // 1. Intentar desde variables de entorno
+                if (isset($_ENV['GH_TOKEN'])) {
+                    $gh_token = $_ENV['GH_TOKEN'];
+                    logRelease("Token obtenido de \$_ENV['GH_TOKEN']");
+                } elseif (isset($_ENV['GITHUB_TOKEN'])) {
+                    $gh_token = $_ENV['GITHUB_TOKEN'];
+                    logRelease("Token obtenido de \$_ENV['GITHUB_TOKEN']");
+                } elseif (getenv('GH_TOKEN')) {
+                    $gh_token = getenv('GH_TOKEN');
+                    logRelease("Token obtenido de getenv('GH_TOKEN')");
+                } elseif (getenv('GITHUB_TOKEN')) {
+                    $gh_token = getenv('GITHUB_TOKEN');
+                    logRelease("Token obtenido de getenv('GITHUB_TOKEN')");
+                }
+                
+                // 2. Si no hay token, intentar leer directamente del .env
+                if (!$gh_token && file_exists(__DIR__ . '/.env')) {
+                    $env_content = file_get_contents(__DIR__ . '/.env');
+                    if (preg_match('/GH_TOKEN=(.+)/', $env_content, $matches)) {
+                        $gh_token = trim($matches[1]);
+                        logRelease("Token obtenido directamente de .env");
+                    }
+                }
+                
+                // 3. Como último recurso, intentar gh auth token
                 if (!$gh_token) {
-                    // Intentar obtener del usuario actual
                     exec("gh auth token 2>&1", $token_output, $token_code);
                     if ($token_code === 0 && !empty($token_output[0])) {
                         $gh_token = trim($token_output[0]);
                         logRelease("Token obtenido de gh auth token");
-                    } else {
-                        logRelease("ERROR: No se pudo obtener token de GitHub");
-                        $git_result[] = "⚠️ No se pudo obtener token de GitHub. Configura GH_TOKEN en .env";
-                        throw new Exception('No se pudo obtener token de GitHub. Ejecuta: gh auth login');
                     }
                 }
+                
+                // Si aún no hay token, error
+                if (!$gh_token) {
+                    logRelease("ERROR: No se pudo obtener token de GitHub de ninguna fuente");
+                    throw new Exception('GitHub CLI no está autenticado. Ejecuta: gh auth login');
+                }
+                
+                logRelease("Token de GitHub disponible: " . substr($gh_token, 0, 10) . "...");
                 
                 // Preparar changelog para GitHub
                 $changes = json_decode($release['changes_json'], true);
