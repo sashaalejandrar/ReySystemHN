@@ -1,39 +1,52 @@
 {
-  "version": "2.5.0",
-  "build": "20251201",
-  "release_date": "2025-12-01",
-  "codename": "Nova",
-  "changelog": [
-    {
-      "version": "2.5.0",
-      "date": "2025-12-01",
-      "type": "major",
-      "changes": [
-        "Sistema de login multi-factor implementado",
-        "Soporte para llaves de seguridad WebAuthn/FIDO2",
-        "Autenticación biométrica (huella, Face ID, Windows Hello)",
-        "PIN de seguridad de 4-6 dígitos",
-        "Dispositivos de confianza con cookies seguras",
-        "Integración completa con 2FA existente",
-        "Página de verificación unificada",
-        "Correcciones de sintaxis JavaScript",
-        "Mejoras en notificaciones con Alpine.js"
-      ]
-    },
-    {
-      "version": "2.4.0",
-      "date": "2025-11-20",
-      "type": "minor",
-      "changes": [
-        "Sistema de notificaciones mejorado",
-        "Modo oscuro completo",
-        "Mejoras de rendimiento"
-      ]
+    "version": "2.6.0",
+    "build": "20251201",
+    "release_date": "2025-12-01",
+    "codename": "SuperNova",
+    "changelog": [
+        {
+            "version": "2.6.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se mejoro todo el sistema de actualizaciones y demás cuando funcione del todo correctamente me animo documentar updates"
+            ]
+        },
+        {
+            "version": "2.5.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Sistema de login multi-factor implementado",
+                "Soporte para llaves de seguridad WebAuthn\/FIDO2",
+                "Autenticación biométrica (huella, Face ID, Windows Hello)",
+                "PIN de seguridad de 4-6 dígitos",
+                "Dispositivos de confianza con cookies seguras",
+                "Integración completa con 2FA existente",
+                "Página de verificación unificada",
+                "Correcciones de sintaxis JavaScript",
+                "Mejoras en notificaciones con Alpine.js"
+            ]
+        },
+        {
+            "version": "2.4.0",
+            "date": "2025-11-20",
+            "type": "minor",
+            "changes": [
+                "Sistema de notificaciones mejorado",
+                "Modo oscuro completo",
+                "Mejoras de rendimiento"
+            ]
+        }
+    ],
+    "system_requirements": {
+        "php": ">=7.4",
+        "mysql": ">=5.7",
+        "extensions": [
+            "mysqli",
+            "json",
+            "session",
+            "openssl"
+        ]
     }
-  ],
-  "system_requirements": {
-    "php": ">=7.4",
-    "mysql": ">=5.7",
-    "extensions": ["mysqli", "json", "session", "openssl"]
-  }
 }
