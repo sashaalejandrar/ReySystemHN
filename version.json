@@ -1,9 +1,24 @@
 {
-    "version": "2.10.3",
+    "version": "2.10.4",
     "build": "20251202",
-    "release_date": "2025-12-01",
-    "codename": "MisteryAG",
+    "release_date": "2025-12-02",
+    "codename": "Yupitin",
     "changelog": [
+        {
+            "version": "2.10.4",
+            "date": "2025-12-02",
+            "type": "minor",
+            "changes": [
+                "Se ha actualizado el script de publicación de lanzamientos para mejorar la eficiencia del proceso de entrega de nuevas versiones.",
+                "La información de versión se ha actualizado para reflejar los cambios más recientes en el software.",
+                "El proceso de lanzamiento de nuevas versiones ahora es más rápido y confiable.",
+                "Se han realizado ajustes internos para mejorar la calidad general del producto.",
+                "La versión actual refleja nuestro compromiso constante con la mejora y la innovación.",
+                "El manejo de versiones ha sido optimizado para ofrecer una mejor experiencia al usuario.",
+                "El script de publicación se ha revisado para minimizar posibles errores durante el lanzamiento.",
+                "La información de versión se mantiene actualizada para garantizar la transparencia y la confiabilidad del software."
+            ]
+        },
         {
             "version": "2.10.3",
             "date": "2025-12-01",
