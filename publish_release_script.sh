@@ -52,6 +52,10 @@ echo "Token encontrado: ${GH_TOKEN:0:15}..."
 # Configurar Git como directorio seguro (local, no global)
 git config --local safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || true
 
+# Configurar usuario de Git (local)
+git config --local user.name "ReySystem Bot"
+git config --local user.email "reysystem@localhost"
+
 # Actualizar version.json
 echo "Actualizando version.json..."
 # Aquí PHP ya debería haberlo actualizado, solo verificamos

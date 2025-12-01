@@ -1,9 +1,17 @@
 {
-    "version": "2.7.0",
+    "version": "2.8.0",
     "build": "20251201",
     "release_date": "2025-12-01",
-    "codename": "Mega Nova X",
+    "codename": "MindNight Nova",
     "changelog": [
+        {
+            "version": "2.8.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se modificaron todas las funciones en la app basicamente xd"
+            ]
+        },
         {
             "version": "2.7.0",
             "date": "2025-12-01",
