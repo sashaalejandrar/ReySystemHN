@@ -9,12 +9,10 @@ DB_PASS=""
 # Cambiar al directorio del proyecto
 cd /opt/lampp/htdocs/ReySystemDemo
 
-# Configurar variables de entorno DESPUÉS de cambiar al directorio
-export GIT_CONFIG_NOSYSTEM=1
-export GIT_CONFIG_GLOBAL=/dev/null
-unset LD_LIBRARY_PATH
-
 echo "=== Publicando Release ID: $RELEASE_ID ==="
+
+# Configurar safe.directory primero
+sudo git config --system --add safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || git config --global --add safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || true
 
 # Obtener datos de la release
 QUERY="SELECT version, codename, build, release_date, changes_json, file_path FROM updates WHERE id=$RELEASE_ID"
@@ -54,12 +52,9 @@ fi
 
 echo "Token encontrado: ${GH_TOKEN:0:15}..."
 
-# Configurar Git directamente sin usar config global
-git config --system --add safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || true
-
-# Configurar usuario de Git (local)
-git config user.name "ReySystem Bot"
-git config user.email "reysystem@localhost"
+# Configurar usuario de Git
+git config user.name "ReySystem Bot" 2>/dev/null || true
+git config user.email "reysystem@localhost" 2>/dev/null || true
 
 # Actualizar version.json
 echo "Actualizando version.json..."
