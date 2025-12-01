@@ -1,9 +1,21 @@
 {
-    "version": "2.10.2",
+    "version": "2.10.3",
     "build": "20251202",
     "release_date": "2025-12-01",
-    "codename": "Child Meet",
+    "codename": "MisteryAG",
     "changelog": [
+        {
+            "version": "2.10.3",
+            "date": "2025-12-01",
+            "type": "minor",
+            "changes": [
+                "Correcciones de errores y mejoras de estabilidad",
+                "Optimizaciones de rendimiento del sistema",
+                "Mejoras en la experiencia de usuario",
+                "Actualizaciones de seguridad",
+                "Corrección de bugs menores"
+            ]
+        },
         {
             "version": "2.10.2",
             "date": "2025-12-01",
