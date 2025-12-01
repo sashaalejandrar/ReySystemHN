@@ -147,6 +147,58 @@ function publishRelease($conexion, $id) {
         logRelease("=== INICIANDO PUBLICACIÓN CON SCRIPT BASH ===");
         logRelease("Release ID: $id");
         
+        // Obtener datos de la release
+        $stmt = $conexion->prepare("SELECT * FROM updates WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows === 0) {
+            throw new Exception('Release no encontrada');
+        }
+        
+        $release = $result->fetch_assoc();
+        
+        // Actualizar version.json ANTES de ejecutar el script
+        logRelease("Actualizando version.json...");
+        
+        $version_content = file_get_contents('version.json');
+        $version_data = json_decode($version_content, true);
+        
+        // Agregar al changelog
+        $new_changelog_entry = [
+            'version' => $release['version'],
+            'date' => $release['release_date'],
+            'type' => $release['release_type'],
+            'changes' => json_decode($release['changes_json'], true)
+        ];
+        
+        // Verificar que no exista ya
+        $version_exists = false;
+        foreach ($version_data['changelog'] as $entry) {
+            if ($entry['version'] === $release['version']) {
+                $version_exists = true;
+                break;
+            }
+        }
+        
+        if (!$version_exists) {
+            array_unshift($version_data['changelog'], $new_changelog_entry);
+        }
+        
+        // Actualizar versión actual
+        $version_data['version'] = $release['version'];
+        $version_data['build'] = $release['build'];
+        $version_data['release_date'] = $release['release_date'];
+        if (!empty($release['codename'])) {
+            $version_data['codename'] = $release['codename'];
+        }
+        
+        // Guardar version.json
+        $json_output = json_encode($version_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        file_put_contents('version.json', $json_output);
+        logRelease("version.json actualizado a v{$release['version']}");
+        
         // Verificar que el script existe
         $script_path = __DIR__ . '/publish_release_script.sh';
         if (!file_exists($script_path)) {

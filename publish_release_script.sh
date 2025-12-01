@@ -49,8 +49,8 @@ fi
 
 echo "Token encontrado: ${GH_TOKEN:0:15}..."
 
-# Configurar Git como directorio seguro
-git config --global safe.directory /opt/lampp/htdocs/ReySystemDemo
+# Configurar Git como directorio seguro (local, no global)
+git config --local safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || true
 
 # Actualizar version.json
 echo "Actualizando version.json..."
