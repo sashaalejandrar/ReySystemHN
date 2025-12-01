@@ -6,6 +6,10 @@ DB_NAME="tiendasrey"
 DB_USER="root"
 DB_PASS=""
 
+# Usar binarios del sistema, no de XAMPP
+export PATH=/usr/bin:/bin:/usr/local/bin:$PATH
+unset LD_LIBRARY_PATH
+
 # Cambiar al directorio del proyecto
 cd /opt/lampp/htdocs/ReySystemDemo
 
