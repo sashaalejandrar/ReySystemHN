@@ -94,23 +94,69 @@ if [ $? -ne 0 ]; then
     git tag -a $GIT_TAG -m "$CODENAME"
 fi
 
-# 4. Push main
-echo "4. git push main"
-git push $PUSH_URL main
-if [ $? -ne 0 ]; then
-    echo "ERROR: git push main falló"
-    exit 1
-fi
-echo "✓ Push main exitoso"
+# 4. Push usando API de GitHub (evita problemas de librerías)
+echo "4. Subiendo cambios a GitHub con API..."
 
-# 5. Push tag
-echo "5. git push tag"
-git push $PUSH_URL $GIT_TAG --force
-if [ $? -ne 0 ]; then
-    echo "ERROR: git push tag falló"
+# Obtener el SHA del commit actual
+COMMIT_SHA=$(git rev-parse HEAD)
+echo "Commit SHA: $COMMIT_SHA"
+
+# Actualizar la referencia main usando la API
+curl -X PATCH \
+  -H "Authorization: token $GH_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/sashaalejandrar/ReySystemHN/git/refs/heads/main \
+  -d "{\"sha\":\"$COMMIT_SHA\",\"force\":true}" \
+  -s -o /tmp/push_main.json
+
+if grep -q "\"ref\"" /tmp/push_main.json; then
+    echo "✓ Main actualizado en GitHub"
+else
+    echo "ERROR: No se pudo actualizar main"
+    cat /tmp/push_main.json
     exit 1
 fi
-echo "✓ Push tag exitoso"
+
+# 5. Crear/actualizar tag usando API
+echo "5. Creando tag en GitHub..."
+
+# Obtener SHA del tag object
+TAG_SHA=$(git rev-parse $GIT_TAG^{})
+
+# Crear tag object en GitHub
+curl -X POST \
+  -H "Authorization: token $GH_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/sashaalejandrar/ReySystemHN/git/tags \
+  -d "{\"tag\":\"$GIT_TAG\",\"message\":\"$CODENAME\",\"object\":\"$COMMIT_SHA\",\"type\":\"commit\"}" \
+  -s -o /tmp/create_tag.json
+
+TAG_OBJECT_SHA=$(grep -o '"sha":"[^"]*"' /tmp/create_tag.json | head -1 | cut -d'"' -f4)
+
+if [ -z "$TAG_OBJECT_SHA" ]; then
+    # Tag ya existe, obtener su SHA
+    TAG_OBJECT_SHA=$(git rev-parse $GIT_TAG)
+fi
+
+# Crear/actualizar referencia del tag
+curl -X POST \
+  -H "Authorization: token $GH_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/sashaalejandrar/ReySystemHN/git/refs \
+  -d "{\"ref\":\"refs/tags/$GIT_TAG\",\"sha\":\"$COMMIT_SHA\"}" \
+  -s -o /tmp/create_ref.json 2>&1
+
+# Si falla porque ya existe, actualizar
+if grep -q "Reference already exists" /tmp/create_ref.json; then
+    curl -X PATCH \
+      -H "Authorization: token $GH_TOKEN" \
+      -H "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/sashaalejandrar/ReySystemHN/git/refs/tags/$GIT_TAG \
+      -d "{\"sha\":\"$COMMIT_SHA\",\"force\":true}" \
+      -s -o /tmp/update_ref.json
+fi
+
+echo "✓ Tag subido a GitHub"
 
 # 6. Crear release en GitHub con gh CLI
 if command -v gh &> /dev/null; then
