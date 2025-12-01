@@ -237,6 +237,11 @@ function publishRelease($conexion, $id) {
             chdir(__DIR__);
             logRelease("Directorio: " . getcwd());
             
+            // Configurar directorio como seguro para Git
+            $safe_dir = __DIR__;
+            exec("git config --global --add safe.directory {$safe_dir} 2>&1", $safe_output, $safe_code);
+            logRelease("Configurando safe.directory: código $safe_code");
+            
             // Verificar si es un repositorio Git
             exec("git rev-parse --git-dir 2>&1", $git_check, $git_exists);
             logRelease("Git repo check código: $git_exists");
