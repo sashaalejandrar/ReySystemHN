@@ -541,6 +541,11 @@ async function publishRelease(id) {
         return;
     }
     
+    const btn = event.target;
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span>';
+    
     try {
         const response = await fetch(`api_releases.php?action=publish&id=${id}`, {
             method: 'POST'
@@ -549,17 +554,64 @@ async function publishRelease(id) {
         const data = await response.json();
         
         if (data.success) {
-            showNotification(data.message, 'success');
+            let message = 'Release publicada exitosamente';
+            
+            if (data.version_updated) {
+                message += ` - version.json actualizado a v${data.version_info.version}`;
+            }
+            
+            showNotification(message, 'success');
+            
             console.log('Release publicada:', data);
             if (data.git_output) {
                 console.log('Git output:', data.git_output);
             }
+            
             setTimeout(() => location.reload(), 2000);
         } else {
             throw new Error(data.message || 'Error al publicar release');
         }
     } catch (error) {
         showNotification(error.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
+}
+
+// Subir a GitHub
+async function uploadToGitHub(id) {
+    if (!confirm('¿Subir esta release a GitHub? Se creará el tag y la release automáticamente.')) {
+        return;
+    }
+    
+    const btn = event.target;
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span>';
+    
+    try {
+        const response = await fetch(`api_releases.php?action=upload_github&id=${id}`, {
+            method: 'POST'
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            showNotification('Subido a GitHub exitosamente', 'success');
+            
+            // Mostrar detalles del resultado
+            if (data.git_output && data.git_output.length > 0) {
+                console.log('Git Output:', data.git_output);
+            }
+            
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            throw new Error(data.message || 'Error al subir a GitHub');
+        }
+    } catch (error) {
+        showNotification(error.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
     }
 }
 
