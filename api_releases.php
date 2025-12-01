@@ -144,6 +144,43 @@ function createRelease($conexion, $usuario) {
 
 function publishRelease($conexion, $id) {
     try {
+        logRelease("=== INICIANDO PUBLICACIÓN CON SCRIPT BASH ===");
+        logRelease("Release ID: $id");
+        
+        // Verificar que el script existe
+        $script_path = __DIR__ . '/publish_release_script.sh';
+        if (!file_exists($script_path)) {
+            throw new Exception('Script de publicación no encontrado');
+        }
+        
+        // Hacer el script ejecutable
+        chmod($script_path, 0755);
+        
+        // Ejecutar el script bash directamente
+        logRelease("Ejecutando script: $script_path $id");
+        exec("bash {$script_path} {$id} 2>&1", $output, $return_code);
+        
+        logRelease("Script terminó con código: $return_code");
+        logRelease("Output: " . implode("\n", $output));
+        
+        if ($return_code === 0) {
+            echo json_encode([
+                'success' => true,
+                'message' => 'Release publicada exitosamente',
+                'output' => $output
+            ]);
+        } else {
+            throw new Exception('Error al publicar release: ' . implode("\n", $output));
+        }
+        
+    } catch (Exception $e) {
+        logRelease("ERROR: " . $e->getMessage());
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+function publishRelease_OLD($conexion, $id) {
+    try {
         // Obtener release
         $stmt = $conexion->prepare("SELECT * FROM updates WHERE id = ?");
         $stmt->bind_param("i", $id);
