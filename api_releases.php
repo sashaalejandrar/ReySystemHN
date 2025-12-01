@@ -239,6 +239,7 @@ function publishRelease($conexion, $id) {
             
             // Verificar si es un repositorio Git
             exec("git rev-parse --git-dir 2>&1", $git_check, $git_exists);
+            logRelease("Git repo check código: $git_exists");
             
             if ($git_exists !== 0) {
                 // No es un repositorio Git - inicializar
@@ -247,15 +248,34 @@ function publishRelease($conexion, $id) {
                 logRelease("Git inicializado");
             }
             
-            // Verificar si hay remote configurado (siempre)
-            exec("git remote get-url origin 2>&1", $remote_check, $remote_exists);
+            // Verificar si hay remote configurado
+            exec("git remote 2>&1", $remote_list, $remote_list_code);
+            logRelease("Git remotes: " . implode(", ", $remote_list) . " [código: $remote_list_code]");
             
-            if ($remote_exists !== 0) {
-                logRelease("ERROR: No hay remote configurado");
-                throw new Exception('No hay remote configurado. Ejecuta: git remote add origin https://github.com/sashaalejandrar/ReySystemHN.git');
+            if (empty($remote_list) || !in_array('origin', $remote_list)) {
+                // No hay remote origin, intentar agregarlo
+                logRelease("Intentando agregar remote origin");
+                $remote_url = 'https://github.com/sashaalejandrar/ReySystemHN.git';
+                exec("git remote add origin {$remote_url} 2>&1", $add_remote_output, $add_remote_code);
+                logRelease("git remote add código: $add_remote_code, output: " . implode(", ", $add_remote_output));
+                
+                if ($add_remote_code !== 0) {
+                    // Si falla, verificar si ya existe
+                    exec("git remote get-url origin 2>&1", $check_origin, $check_origin_code);
+                    if ($check_origin_code !== 0) {
+                        logRelease("ERROR: No se pudo configurar remote");
+                        throw new Exception('No se pudo configurar remote de GitHub. Verifica la configuración de Git.');
+                    }
+                }
             }
             
-            logRelease("Remote configurado: " . (isset($remote_check[0]) ? $remote_check[0] : 'origin'));
+            // Verificar URL del remote
+            exec("git remote get-url origin 2>&1", $remote_url_check, $remote_url_code);
+            if ($remote_url_code === 0 && !empty($remote_url_check[0])) {
+                logRelease("Remote origin URL: " . $remote_url_check[0]);
+            } else {
+                logRelease("WARNING: No se pudo obtener URL del remote");
+            }
             
             // 1. Add version.json
             logRelease("Ejecutando: git add version.json");
