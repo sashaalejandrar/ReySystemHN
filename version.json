@@ -1,9 +1,19 @@
 {
-    "version": "2.9.0",
+    "version": "2.10.0",
     "build": "20251202",
     "release_date": "2025-12-01",
-    "codename": "TokyoGarden",
+    "codename": "Megadolon ",
     "changelog": [
+        {
+            "version": "2.10.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se mejoro el sistema de updates",
+                "Se agregaron cambios importantes",
+                "Se arreglo la instalación de updates"
+            ]
+        },
         {
             "version": "2.9.0",
             "date": "2025-12-01",
