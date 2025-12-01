@@ -2,6 +2,21 @@
 /**
  * API para gestionar releases del sistema
  */
+
+// Cargar variables de entorno desde .env
+if (file_exists(__DIR__ . '/.env')) {
+    $env_lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($env_lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        list($key, $value) = explode('=', $line, 2);
+        $key = trim($key);
+        $value = trim($value);
+        if (!getenv($key)) {
+            putenv("$key=$value");
+        }
+    }
+}
+
 session_start();
 header('Content-Type: application/json');
 
@@ -266,15 +281,26 @@ function publishRelease($conexion, $id) {
             logRelease("Ejecutando: git push origin main");
             exec("git push origin main 2>&1", $output4, $code4);
             $git_result[] = "git push main: " . implode("\n", $output4) . " [código: $code4]";
-            logRelease("git push main código: $code4");
+            logRelease("git push main código: $code4, output: " . implode(", ", $output4));
+            
+            if ($code4 !== 0) {
+                logRelease("ERROR: git push main falló");
+                throw new Exception('Error al hacer push a main: ' . implode("\n", $output4));
+            }
             
             // 5. Push tag
             logRelease("Ejecutando: git push origin {$git_tag}");
             exec("git push origin {$git_tag} 2>&1", $output5, $code5);
-            $git_result[] = "git push tag: " . implode("\n", $output5);
+            $git_result[] = "git push tag: " . implode("\n", $output5) . " [código: $code5]";
+            logRelease("git push tag código: $code5, output: " . implode(", ", $output5));
             
-            $git_success = ($code5 === 0);
-            logRelease("git push tag código: $code5, success: " . ($git_success ? 'true' : 'false'));
+            if ($code5 !== 0) {
+                logRelease("ERROR: git push tag falló");
+                throw new Exception('Error al hacer push del tag: ' . implode("\n", $output5));
+            }
+            
+            $git_success = true;
+            logRelease("Push exitoso");
             
             // Crear release en GitHub con gh CLI
             logRelease("Verificando GitHub CLI...");
@@ -282,6 +308,22 @@ function publishRelease($conexion, $id) {
             logRelease("GitHub CLI existe: " . ($gh_exists === 0 ? 'true' : 'false'));
             
             if ($gh_exists === 0) {
+                // Obtener token de GitHub
+                $gh_token = getenv('GH_TOKEN') ?: getenv('GITHUB_TOKEN');
+                
+                if (!$gh_token) {
+                    // Intentar obtener del usuario actual
+                    exec("gh auth token 2>&1", $token_output, $token_code);
+                    if ($token_code === 0 && !empty($token_output[0])) {
+                        $gh_token = trim($token_output[0]);
+                        logRelease("Token obtenido de gh auth token");
+                    } else {
+                        logRelease("ERROR: No se pudo obtener token de GitHub");
+                        $git_result[] = "⚠️ No se pudo obtener token de GitHub. Configura GH_TOKEN en .env";
+                        throw new Exception('No se pudo obtener token de GitHub. Ejecuta: gh auth login');
+                    }
+                }
+                
                 // Preparar changelog para GitHub
                 $changes = json_decode($release['changes_json'], true);
                 $github_notes = "## 🎉 Novedades\n\n";
@@ -295,8 +337,16 @@ function publishRelease($conexion, $id) {
                 file_put_contents($temp_notes, $github_notes);
                 logRelease("Notas guardadas en: $temp_notes");
                 
-                // Comando base
-                $gh_cmd = "gh release create {$git_tag} --title '{$commit_msg}' --notes-file {$temp_notes}";
+                // Configurar variables de entorno para gh
+                $env_vars = [
+                    "GH_TOKEN={$gh_token}",
+                    "GITHUB_TOKEN={$gh_token}",
+                    "GH_HOST=github.com"
+                ];
+                $env_string = implode(' ', $env_vars);
+                
+                // Comando base con variables de entorno
+                $gh_cmd = "{$env_string} gh release create {$git_tag} --title " . escapeshellarg($commit_msg) . " --notes-file " . escapeshellarg($temp_notes);
                 
                 // Agregar archivo si existe
                 if ($release['file_path'] && file_exists($release['file_path'])) {
@@ -305,7 +355,7 @@ function publishRelease($conexion, $id) {
                 }
                 
                 // Ejecutar
-                logRelease("Ejecutando: $gh_cmd");
+                logRelease("Ejecutando: gh release create (con token)");
                 exec($gh_cmd . " 2>&1", $output6, $code6);
                 $git_result[] = "GitHub Release: " . implode("\n", $output6) . " [código: $code6]";
                 logRelease("gh release create código: $code6, output: " . implode(", ", $output6));
@@ -315,7 +365,7 @@ function publishRelease($conexion, $id) {
                 
                 if ($code6 === 0) {
                     // Obtener URL de la release
-                    exec("gh release view {$git_tag} --json url -q .url 2>&1", $output7, $code7);
+                    exec("{$env_string} gh release view {$git_tag} --json url -q .url 2>&1", $output7, $code7);
                     if ($code7 === 0 && !empty($output7[0])) {
                         $github_url = trim($output7[0]);
                         $stmt = $conexion->prepare("UPDATE updates SET github_release_url = ? WHERE id = ?");
