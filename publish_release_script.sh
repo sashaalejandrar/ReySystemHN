@@ -1,11 +1,6 @@
 #!/bin/bash
 # Script para publicar release - evita problemas de librerías de PHP
 
-# Configurar variables de entorno para evitar problemas de librerías
-export HOME=/tmp
-export GIT_CONFIG_NOSYSTEM=1
-unset LD_LIBRARY_PATH
-
 RELEASE_ID=$1
 DB_NAME="tiendasrey"
 DB_USER="root"
@@ -13,6 +8,11 @@ DB_PASS=""
 
 # Cambiar al directorio del proyecto
 cd /opt/lampp/htdocs/ReySystemDemo
+
+# Configurar variables de entorno DESPUÉS de cambiar al directorio
+export GIT_CONFIG_NOSYSTEM=1
+export GIT_CONFIG_GLOBAL=/dev/null
+unset LD_LIBRARY_PATH
 
 echo "=== Publicando Release ID: $RELEASE_ID ==="
 
@@ -54,12 +54,12 @@ fi
 
 echo "Token encontrado: ${GH_TOKEN:0:15}..."
 
-# Configurar Git como directorio seguro (local, no global)
-git config --local safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || true
+# Configurar Git directamente sin usar config global
+git config --system --add safe.directory /opt/lampp/htdocs/ReySystemDemo 2>/dev/null || true
 
 # Configurar usuario de Git (local)
-git config --local user.name "ReySystem Bot"
-git config --local user.email "reysystem@localhost"
+git config user.name "ReySystem Bot"
+git config user.email "reysystem@localhost"
 
 # Actualizar version.json
 echo "Actualizando version.json..."
