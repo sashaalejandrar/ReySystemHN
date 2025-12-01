@@ -308,6 +308,31 @@ function publishRelease($conexion, $id) {
             $git_result[] = "git tag: " . (empty($output3) ? "(vacío)" : implode("\n", $output3)) . " [código: $code3]";
             logRelease("git tag código: $code3");
             
+            // Obtener token de GitHub para push
+            $gh_token_for_push = null;
+            if (isset($_ENV['GH_TOKEN'])) {
+                $gh_token_for_push = $_ENV['GH_TOKEN'];
+            } elseif (file_exists(__DIR__ . '/.env')) {
+                $env_content = file_get_contents(__DIR__ . '/.env');
+                if (preg_match('/GH_TOKEN=(.+)/', $env_content, $matches)) {
+                    $gh_token_for_push = trim($matches[1]);
+                }
+            }
+            
+            // Configurar credenciales temporalmente si tenemos token
+            if ($gh_token_for_push) {
+                logRelease("Configurando credenciales de Git con token");
+                // Configurar helper de credenciales para usar el token
+                exec("git config credential.helper store 2>&1", $cred_output, $cred_code);
+                
+                // Crear archivo de credenciales temporal
+                $git_credentials = "https://sashaalejandrar:{$gh_token_for_push}@github.com";
+                $credentials_file = sys_get_temp_dir() . '/git-credentials-' . time();
+                file_put_contents($credentials_file, $git_credentials);
+                exec("git config credential.helper 'store --file={$credentials_file}' 2>&1");
+                logRelease("Credenciales configuradas");
+            }
+            
             // 4. Push main
             logRelease("Ejecutando: git push origin main");
             exec("git push origin main 2>&1", $output4, $code4);
@@ -316,6 +341,10 @@ function publishRelease($conexion, $id) {
             
             if ($code4 !== 0) {
                 logRelease("ERROR: git push main falló");
+                // Limpiar credenciales
+                if (isset($credentials_file) && file_exists($credentials_file)) {
+                    unlink($credentials_file);
+                }
                 throw new Exception('Error al hacer push a main: ' . implode("\n", $output4));
             }
             
@@ -323,6 +352,13 @@ function publishRelease($conexion, $id) {
             logRelease("Ejecutando: git push origin {$git_tag}");
             exec("git push origin {$git_tag} 2>&1", $output5, $code5);
             $git_result[] = "git push tag: " . implode("\n", $output5) . " [código: $code5]";
+            
+            // Limpiar credenciales temporales
+            if (isset($credentials_file) && file_exists($credentials_file)) {
+                unlink($credentials_file);
+                exec("git config --unset credential.helper 2>&1");
+                logRelease("Credenciales limpiadas");
+            }
             logRelease("git push tag código: $code5, output: " . implode(", ", $output5));
             
             if ($code5 !== 0) {
