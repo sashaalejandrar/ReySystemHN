@@ -1,0 +1,10 @@
+/* Fix para modales - agregar al final del archivo CSS */
+
+/* Override hidden state for modals */
+.modal.hidden {
+    display: none !important;
+}
+
+.modal:not(.hidden) {
+    display: flex !important;
+}

@@ -1,0 +1,416 @@
+/* ========================================
+   REPORTES CAJA - CHRISTMAS THEME
+   ======================================== */
+
+/* Rainbow Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(180deg,
+            rgba(251, 191, 36, 0.1) 0%,
+            rgba(245, 158, 11, 0.1) 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            #fbbf24 0%,
+            #f59e0b 25%,
+            #f97316 50%,
+            #ef4444 75%,
+            #ec4899 100%);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,
+            #f59e0b 0%,
+            #f97316 25%,
+            #ef4444 50%,
+            #ec4899 75%,
+            #a855f7 100%);
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+}
+
+/* Header Imponente */
+.christmas-header {
+    background: linear-gradient(135deg,
+            rgba(220, 38, 38, 0.9) 0%,
+            rgba(22, 163, 74, 0.9) 50%,
+            rgba(251, 191, 36, 0.9) 100%);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 20px 60px rgba(220, 38, 38, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.christmas-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="white" opacity="0.3"/><circle cx="30" cy="20" r="1.5" fill="white" opacity="0.2"/><circle cx="50" cy="15" r="2.5" fill="white" opacity="0.25"/><circle cx="70" cy="25" r="1" fill="white" opacity="0.3"/><circle cx="90" cy="10" r="2" fill="white" opacity="0.2"/></svg>');
+    background-size: 200px 200px;
+    animation: snowfall 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes snowfall {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 200px 200px;
+    }
+}
+
+.christmas-header h1 {
+    color: white;
+    text-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(251, 191, 36, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+/* Crown SVG for Title */
+.crown-icon {
+    display: inline-block;
+    filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.6));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-15deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(-15deg);
+    }
+}
+
+/* Stats Cards */
+.stats-card {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.85) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.dark .stats-card {
+    background: linear-gradient(135deg,
+            rgba(30, 41, 59, 0.9) 0%,
+            rgba(15, 23, 42, 0.95) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.stats-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+        0 20px 60px rgba(17, 82, 212, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Table Container Christmas */
+.table-container {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.98) 0%,
+            rgba(255, 255, 255, 0.95) 100%);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(251, 191, 36, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.dark .table-container {
+    background: linear-gradient(135deg,
+            rgba(17, 23, 34, 0.95) 0%,
+            rgba(15, 23, 42, 0.98) 100%);
+    border-color: rgba(251, 191, 36, 0.15);
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Table Header Christmas */
+thead {
+    background: linear-gradient(135deg,
+            rgba(220, 38, 38, 0.1) 0%,
+            rgba(22, 163, 74, 0.1) 100%) !important;
+    border-bottom: 2px solid rgba(251, 191, 36, 0.3) !important;
+}
+
+.dark thead {
+    background: linear-gradient(135deg,
+            rgba(220, 38, 38, 0.2) 0%,
+            rgba(22, 163, 74, 0.2) 100%) !important;
+}
+
+thead th {
+    font-weight: 800 !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 1rem 1.5rem !important;
+}
+
+/* Table Rows Glassmorphism */
+tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.1) !important;
+}
+
+tbody tr:hover {
+    background: linear-gradient(135deg,
+            rgba(251, 191, 36, 0.08) 0%,
+            rgba(245, 158, 11, 0.08) 100%) !important;
+    transform: translateX(4px);
+    box-shadow: inset 4px 0 0 rgba(251, 191, 36, 0.6);
+}
+
+tbody td {
+    padding: 1.25rem 1.5rem !important;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn-edit {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.action-btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.action-btn-delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.action-btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+}
+
+.action-btn-transfer {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.action-btn-transfer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+}
+
+/* Badges Premium */
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.badge-open {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.badge-closed {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+/* Modal Christmas */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2rem;
+}
+
+.modal-content {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.98) 0%,
+            rgba(255, 255, 255, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(251, 191, 36, 0.3);
+    border-radius: 24px;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.dark .modal-content {
+    background: linear-gradient(135deg,
+            rgba(17, 23, 34, 0.98) 0%,
+            rgba(15, 23, 42, 0.95) 100%);
+    border-color: rgba(251, 191, 36, 0.2);
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    background: linear-gradient(135deg,
+            rgba(220, 38, 38, 0.9) 0%,
+            rgba(22, 163, 74, 0.9) 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin: -2rem -2rem 1.5rem -2rem;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Inputs Christmas */
+.form-input-christmas {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid rgba(251, 191, 36, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.dark .form-input-christmas {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(251, 191, 36, 0.15);
+    color: white;
+}
+
+.form-input-christmas:focus {
+    border-color: rgba(251, 191, 36, 0.6);
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg,
+            rgba(251, 191, 36, 0.1) 0%,
+            rgba(245, 158, 11, 0.1) 100%);
+    border-left: 4px solid;
+    border-radius: 12px;
+}
+
+.section-header-green {
+    border-color: #10b981;
+}
+
+.section-header-blue {
+    border-color: #3b82f6;
+}
+
+.section-header-red {
+    border-color: #ef4444;
+}
+
+.section-header .material-symbols-outlined {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Loading Spinner Christmas */
+.spinner {
+    border: 4px solid rgba(251, 191, 36, 0.2);
+    border-top: 4px solid #fbbf24;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

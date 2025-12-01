@@ -1,0 +1,11 @@
+Nombre,DescripcionCorta,Marca,Descripcion,TipoEmpaque,UnidadesPorEmpaque,CostoUnidad,CostoEmpaque,PrecioUnidad,PrecioEmpaque,Margen,Proveedor,DireccionProveedor,ContactoProveedor
+Laptop HP 15,Laptop empresarial,HP,Laptop empresarial con procesador Intel i5 de 11va generación,Unidad,1,12000,12000,15000,15000,25,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Mouse Logitech M185,Mouse inalámbrico,Logitech,Mouse inalámbrico con batería de larga duración hasta 12 meses,Unidad,1,180,180,250,250,38.89,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Teclado Mecánico RGB,Teclado gaming,Redragon,Teclado gaming mecánico con iluminación RGB personalizable,Unidad,1,600,600,800,800,33.33,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Monitor Samsung 24",Monitor Full HD,Samsung,Monitor Full HD de 24 pulgadas con panel IPS,Unidad,1,2800,2800,3500,3500,25,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Webcam Logitech HD,Cámara web 1080p,Logitech,Cámara web 1080p con micrófono integrado y enfoque automático,Unidad,1,350,350,450,450,28.57,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Cable HDMI 2m,Cable HDMI 2.0,Belkin,Cable HDMI 2.0 de alta velocidad 4K compatible,Paquete,5,90,450,120,600,33.33,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Memoria USB 32GB,Memoria USB 3.0,Kingston,Memoria USB 3.0 de alta velocidad 32GB,Paquete,10,140,1400,180,1800,28.57,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Disco Duro Externo 1TB,Disco portátil,Seagate,Disco duro portátil USB 3.0 de 1TB,Unidad,1,950,950,1200,1200,26.32,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Auriculares Bluetooth,Auriculares inalámbricos,Sony,Auriculares inalámbricos con cancelación de ruido activa,Unidad,1,500,500,650,650,30,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234
+Cargador Universal,Cargador rápido USB-C,Anker,Cargador rápido USB-C de 65W con tecnología PowerIQ,Unidad,1,220,220,280,280,27.27,TechSupply,Zona Industrial San Pedro Sula,+504 2550-1234

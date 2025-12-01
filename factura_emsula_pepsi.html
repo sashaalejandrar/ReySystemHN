@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura EMSULA - Pepsi Honduras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .factura {
+            background: white;
+            width: 800px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #003da5;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #003da5;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            flex: 1;
+        }
+
+        h1 {
+            color: #003da5;
+            font-size: 28px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+
+        .empresa-info {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #333;
+        }
+
+        .factura-numero {
+            text-align: right;
+            flex: 1;
+        }
+
+        .factura-numero h2 {
+            color: #e32726;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .factura-numero p {
+            margin: 5px 0;
+            font-size: 12px;
+        }
+
+        .info-cliente {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #003da5;
+        }
+
+        .info-cliente div {
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        thead {
+            background: #003da5;
+            color: white;
+        }
+
+        th {
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 12px;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .codigo {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #003da5;
+        }
+
+        .totales {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .totales table {
+            margin-left: auto;
+            width: 350px;
+        }
+
+        .totales td {
+            padding: 8px;
+            font-size: 13px;
+        }
+
+        .totales .total-final {
+            background: #003da5;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #003da5;
+            font-size: 10px;
+            text-align: center;
+            color: #666;
+        }
+
+        .condiciones {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            font-size: 11px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="factura">
+        <div class="header">
+            <div class="logo-section">
+                <h1>EMSULA</h1>
+                <div class="empresa-info">
+                    <strong>EMBOTELLADORA DE SULA S.A. DE C.V.</strong><br>
+                    RTN: 08019001234567<br>
+                    Zona Industrial, San Pedro Sula, Cortés, Honduras<br>
+                    Tel: 2550-1234 | Fax: 2550-1235<br>
+                    Email: ventas@emsula.hn | www.emsula.hn
+                </div>
+            </div>
+            <div class="factura-numero">
+                <h2>FACTURA</h2>
+                <p><strong>No. 001-002-01-00045678</strong></p>
+                <p>Fecha: 22/11/2024</p>
+                <p>Hora: 09:15:00</p>
+                <p>CAI: 8F3C2A-9D4E1B-7C5A6F-2B8D9E-4A7C3F-12</p>
+            </div>
+        </div>
+
+        <div class="info-cliente">
+            <div>
+                <strong>CLIENTE:</strong><br>
+                Tienda Rey<br>
+                RTN: 08019876543210<br>
+                Col. Kennedy, Tegucigalpa, Honduras
+            </div>
+            <div style="text-align: right;">
+                <strong>VENDEDOR:</strong> Juan Carlos Martínez<br>
+                <strong>RUTA:</strong> TGU-CENTRO-01<br>
+                <strong>CONDICIÓN:</strong> Contado<br>
+                <strong>ORDEN:</strong> ORD-2024-11-8765
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 120px;">CÓDIGO</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th style="width: 80px; text-align: center;">CANT</th>
+                    <th style="width: 100px; text-align: right;">PRECIO UNIT</th>
+                    <th style="width: 100px; text-align: right;">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="codigo">7401005123456</td>
+                    <td>Pepsi Cola 2.5L PET</td>
+                    <td style="text-align: center;">24</td>
+                    <td style="text-align: right;">L 32.50</td>
+                    <td style="text-align: right;">L 780.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005123463</td>
+                    <td>Pepsi Cola 600ml PET</td>
+                    <td style="text-align: center;">48</td>
+                    <td style="text-align: right;">L 15.00</td>
+                    <td style="text-align: right;">L 720.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005123470</td>
+                    <td>Pepsi Cola Lata 355ml</td>
+                    <td style="text-align: center;">36</td>
+                    <td style="text-align: right;">L 18.50</td>
+                    <td style="text-align: right;">L 666.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005234567</td>
+                    <td>7UP 2.5L PET</td>
+                    <td style="text-align: center;">12</td>
+                    <td style="text-align: right;">L 32.50</td>
+                    <td style="text-align: right;">L 390.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005234574</td>
+                    <td>7UP 600ml PET</td>
+                    <td style="text-align: center;">24</td>
+                    <td style="text-align: right;">L 15.00</td>
+                    <td style="text-align: right;">L 360.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005345678</td>
+                    <td>Mirinda Naranja 2.5L PET</td>
+                    <td style="text-align: center;">12</td>
+                    <td style="text-align: right;">L 30.00</td>
+                    <td style="text-align: right;">L 360.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005345685</td>
+                    <td>Mirinda Naranja 600ml PET</td>
+                    <td style="text-align: center;">24</td>
+                    <td style="text-align: right;">L 14.00</td>
+                    <td style="text-align: right;">L 336.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005456789</td>
+                    <td>Gatorade Naranja 591ml</td>
+                    <td style="text-align: center;">24</td>
+                    <td style="text-align: right;">L 22.00</td>
+                    <td style="text-align: right;">L 528.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005456796</td>
+                    <td>Gatorade Azul 591ml</td>
+                    <td style="text-align: center;">24</td>
+                    <td style="text-align: right;">L 22.00</td>
+                    <td style="text-align: right;">L 528.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005567890</td>
+                    <td>Agua H2OH! 600ml</td>
+                    <td style="text-align: center;">48</td>
+                    <td style="text-align: right;">L 8.00</td>
+                    <td style="text-align: right;">L 384.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005678901</td>
+                    <td>Lipton Ice Tea Limón 500ml</td>
+                    <td style="text-align: center;">24</td>
+                    <td style="text-align: right;">L 18.00</td>
+                    <td style="text-align: right;">L 432.00</td>
+                </tr>
+                <tr>
+                    <td class="codigo">7401005789012</td>
+                    <td>Squirt 2.5L PET</td>
+                    <td style="text-align: center;">12</td>
+                    <td style="text-align: right;">L 32.50</td>
+                    <td style="text-align: right;">L 390.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totales">
+            <table>
+                <tr>
+                    <td><strong>SUBTOTAL:</strong></td>
+                    <td style="text-align: right;">L 5,874.00</td>
+                </tr>
+                <tr>
+                    <td><strong>DESCUENTO (2%):</strong></td>
+                    <td style="text-align: right;">L 117.48</td>
+                </tr>
+                <tr>
+                    <td><strong>SUBTOTAL NETO:</strong></td>
+                    <td style="text-align: right;">L 5,756.52</td>
+                </tr>
+                <tr>
+                    <td><strong>ISV (15%):</strong></td>
+                    <td style="text-align: right;">L 863.48</td>
+                </tr>
+                <tr class="total-final">
+                    <td><strong>TOTAL A PAGAR:</strong></td>
+                    <td style="text-align: right;"><strong>L 6,620.00</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="condiciones">
+            <strong>CONDICIONES DE VENTA:</strong><br>
+            • Producto sujeto a disponibilidad de inventario<br>
+            • No se aceptan devoluciones de producto en buen estado después de 24 horas<br>
+            • Envases retornables: Pepsi 2.5L (depósito L5.00 c/u), Vidrio 355ml (depósito L3.00 c/u)<br>
+            • Forma de pago: Efectivo / Cheque / Transferencia bancaria
+        </div>
+
+        <div class="footer">
+            <strong>EMSULA - Embotelladora de Sula S.A. de C.V.</strong><br>
+            Distribuidor Autorizado PepsiCo para Honduras<br>
+            Rango Autorizado: Del 001-002-01-00000001 al 001-002-01-00100000<br>
+            Fecha Límite de Emisión: 31/12/2025<br>
+            <br>
+            <em>"La imagen puede no ser contractual"</em><br>
+            <strong>¡Gracias por su compra!</strong>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Test Sugerencias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>
+        .suggestions-container {
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            margin-top: 0.5rem;
+        }
+        .dark .suggestions-container {
+            background-color: #192233;
+            border-color: #324467;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 p-8">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-white text-2xl mb-4">Test de Sugerencias</h1>
+        
+        <div class="relative">
+            <input 
+                type="text" 
+                id="testInput"
+                class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg"
+                placeholder="Escribe 'coca' para probar..."
+                oninput="buscarTest(this.value)">
+            <div id="sugerencias" class="suggestions-container hidden"></div>
+        </div>
+        
+        <div id="resultado" class="mt-4 p-4 bg-gray-800 text-white rounded-lg hidden">
+            <h3 class="font-bold mb-2">Producto Seleccionado:</h3>
+            <pre id="productoData"></pre>
+        </div>
+    </div>
+
+    <script>
+        const sugerenciasPrueba = [
+            { Codigo_Producto: '001', Nombre_Producto: 'Coca Cola 2L', Stock: 50, Precio_Unitario: 25.50, Marca: 'Coca Cola', Grupo: 'Bebidas' },
+            { Codigo_Producto: '002', Nombre_Producto: 'Coca Cola 3L', Stock: 30, Precio_Unitario: 35.00, Marca: 'Coca Cola', Grupo: 'Bebidas' },
+            { Codigo_Producto: '003', Nombre_Producto: 'Coca Cola Zero 2L', Stock: 20, Precio_Unitario: 27.00, Marca: 'Coca Cola', Grupo: 'Bebidas' }
+        ];
+
+        function buscarTest(valor) {
+            const contenedor = document.getElementById('sugerencias');
+            
+            if (valor.length < 2) {
+                contenedor.classList.add('hidden');
+                return;
+            }
+
+            const sugerencias = sugerenciasPrueba.filter(s => 
+                s.Nombre_Producto.toLowerCase().includes(valor.toLowerCase()) ||
+                s.Codigo_Producto.includes(valor)
+            );
+
+            if (sugerencias.length === 0) {
+                contenedor.classList.add('hidden');
+                return;
+            }
+
+            mostrarSugerencias(sugerencias);
+        }
+
+        function mostrarSugerencias(sugerencias) {
+            const contenedor = document.getElementById('sugerencias');
+            contenedor.innerHTML = '';
+            contenedor.classList.remove('hidden');
+
+            sugerencias.forEach(s => {
+                const item = document.createElement('div');
+                item.className = 'p-4 hover:bg-blue-500/20 cursor-pointer border-b border-gray-700 last:border-0';
+                item.innerHTML = `
+                    <div class="text-white font-bold">${s.Nombre_Producto}</div>
+                    <div class="text-gray-400 text-sm">SKU: ${s.Codigo_Producto} | Stock: ${s.Stock} | L ${s.Precio_Unitario}</div>
+                `;
+
+                item.addEventListener('click', function() {
+                    console.log('✅ CLICK DETECTADO!', s);
+                    seleccionarProducto(s);
+                });
+
+                contenedor.appendChild(item);
+            });
+        }
+
+        function seleccionarProducto(producto) {
+            console.log('📦 Producto seleccionado:', producto);
+            
+            document.getElementById('testInput').value = producto.Codigo_Producto;
+            document.getElementById('sugerencias').classList.add('hidden');
+            
+            document.getElementById('resultado').classList.remove('hidden');
+            document.getElementById('productoData').textContent = JSON.stringify(producto, null, 2);
+        }
+    </script>
+</body>
+</html>

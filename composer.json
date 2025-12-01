@@ -1,0 +1,11 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "ratchet/pawl": "^0.4.3",
+        "cboden/ratchet": "^0.4.4",
+        "tecnick.com/tcpdf": "^6.10",
+        "sonata-project/google-authenticator": "^2.3",
+        "mindee/mindee": "^2.2",
+        "tecnickcom/tcpdf": "^6.10"
+    }
+}

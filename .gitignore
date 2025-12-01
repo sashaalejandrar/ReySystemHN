@@ -1,0 +1,63 @@
+# ReySystem - Archivos a ignorar en Git
+
+# Actualizaciones y backups
+temp_updates/
+backups/
+releases/
+*.backup
+
+# Logs
+logs/
+*.log
+php_errors.log
+api_errors.log
+2fa_debug.log
+buscar_sugerencias_debug.log
+obtener_producto_debug.log
+register_device_errors.log
+
+# Uploads y archivos de usuario
+uploads/
+documentos/
+facturas_prueba/
+
+# Configuración local y variables de entorno
+config.local.php
+update_config.local.php
+.env
+.env.local
+
+# Base de datos
+*.sql.backup
+*.sql.gz
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (si usas npm)
+node_modules/
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporales
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Archivos de prueba
+test_*.php
+debug_*.php
+*_test.html

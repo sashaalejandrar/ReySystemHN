@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="dark">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ejecutar SQL - Unidades de Medida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">🚀 Instalador de Sistema de Unidades de Medida</h1>
+
+        <div id="status" class="mb-6"></div>
+
+        <button onclick="ejecutarSQL()" id="btnEjecutar"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-bold text-white transition">
+            <span class="material-symbols-outlined inline-block align-middle">play_arrow</span>
+            Ejecutar Instalación
+        </button>
+
+        <div id="resultado" class="mt-6 p-4 bg-gray-800 rounded-lg hidden"></div>
+    </div>
+
+    <script>
+        async function ejecutarSQL() {
+            const btn = document.getElementById('btnEjecutar');
+            const status = document.getElementById('status');
+            const resultado = document.getElementById('resultado');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined inline-block align-middle animate-spin">refresh</span> Ejecutando...';
+
+            status.innerHTML = '<div class="bg-blue-900/50 border border-blue-500 p-4 rounded-lg">⏳ Ejecutando SQL...</div>';
+
+            try {
+                const response = await fetch('ejecutar_unidades_backend.php');
+                const data = await response.json();
+
+                resultado.classList.remove('hidden');
+
+                if (data.success) {
+                    status.innerHTML = '<div class="bg-green-900/50 border border-green-500 p-4 rounded-lg">✅ Instalación completada exitosamente</div>';
+                    resultado.innerHTML = `
+                    <h3 class="font-bold text-green-400 mb-2">Resultados:</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>✅ Tabla unidades_medida creada</li>
+                        <li>✅ ${data.unidades_insertadas || 0} unidades predefinidas insertadas</li>
+                        <li>✅ Columnas agregadas a tipos_precios</li>
+                        <li>✅ Columnas agregadas a stock</li>
+                        <li>✅ Columnas agregadas a creacion_de_productos</li>
+                        <li>✅ Tipos de precios automáticos creados</li>
+                    </ul>
+                    <div class="mt-4 p-3 bg-blue-900/30 rounded">
+                        <p class="text-sm">🎉 El sistema de unidades de medida está listo para usar</p>
+                    </div>
+                `;
+                    btn.innerHTML = '✅ Completado';
+                    btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                    btn.classList.add('bg-green-600');
+                } else {
+                    status.innerHTML = '<div class="bg-red-900/50 border border-red-500 p-4 rounded-lg">❌ Error en la instalación</div>';
+                    resultado.innerHTML = `
+                    <h3 class="font-bold text-red-400 mb-2">Errores:</h3>
+                    <pre class="text-xs bg-black/50 p-3 rounded overflow-auto">${data.error || 'Error desconocido'}</pre>
+                `;
+                    btn.disabled = false;
+                    btn.innerHTML = '<span class="material-symbols-outlined inline-block align-middle">refresh</span> Reintentar';
+                }
+            } catch (error) {
+                status.innerHTML = '<div class="bg-red-900/50 border border-red-500 p-4 rounded-lg">❌ Error de conexión</div>';
+                resultado.classList.remove('hidden');
+                resultado.innerHTML = `<pre class="text-xs">${error.message}</pre>`;
+                btn.disabled = false;
+                btn.innerHTML = '<span class="material-symbols-outlined inline-block align-middle">refresh</span> Reintentar';
+            }
+        }
+    </script>
+</body>
+
+</html>

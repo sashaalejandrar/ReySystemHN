@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `documentacion_modulos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_modulo` varchar(255) NOT NULL,
+  `ruta_archivo` varchar(500) NOT NULL,
+  `categoria` varchar(100) DEFAULT NULL,
+  `descripcion` text,
+  `proposito` text,
+  `como_usar` text,
+  `ejemplos` text,
+  `parametros` JSON DEFAULT NULL,
+  `permisos_requeridos` varchar(100) DEFAULT NULL,
+  `capturas` JSON DEFAULT NULL,
+  `generado_por_ia` tinyint(1) DEFAULT 1,
+  `ultima_actualizacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `creado_por` varchar(100) DEFAULT NULL,
+  `version` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ruta_archivo` (`ruta_archivo`),
+  KEY `idx_categoria` (`categoria`),
+  KEY `idx_nombre` (`nombre_modulo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

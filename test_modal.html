@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Test Modal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1152d4",
+            },
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <h1 class="text-3xl font-bold mb-8">Test de Notificaciones</h1>
+    
+    <div class="space-y-4">
+        <button onclick="testConfirmacion()" class="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600">
+            Test Confirmación
+        </button>
+        
+        <button onclick="testError()" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600">
+            Test Error
+        </button>
+        
+        <button onclick="testAdvertencia()" class="px-4 py-2 bg-yellow-500 rounded hover:bg-yellow-600">
+            Test Advertencia
+        </button>
+    </div>
+
+    <script src="js/notificaciones.js"></script>
+    <script>
+        function testConfirmacion() {
+            console.log('Llamando mostrarConfirmacion...');
+            mostrarConfirmacion('¿Estás seguro de realizar esta acción?', () => {
+                console.log('¡Confirmado!');
+                alert('¡Acción confirmada!');
+            });
+        }
+
+        function testError() {
+            console.log('Llamando mostrarError...');
+            mostrarError('Ha ocurrido un error de prueba');
+        }
+
+        function testAdvertencia() {
+            console.log('Llamando mostrarAdvertencia...');
+            mostrarAdvertencia('Esta es una advertencia de prueba');
+        }
+    </script>
+</body>
+</html>

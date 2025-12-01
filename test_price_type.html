@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Price Type Data</title>
+</head>
+<body>
+    <h1>Test: Agregar Producto con Tipo de Precio</h1>
+    <button onclick="testAddProduct()">Agregar Producto de Prueba</button>
+    <button onclick="showCart()">Mostrar Carrito</button>
+    <button onclick="testSendData()">Simular Envío de Venta</button>
+    <pre id="output"></pre>
+
+    <script>
+        let cart = [];
+
+        function testAddProduct() {
+            const product = {
+                id: '1',
+                codigo: 'TEST001',
+                nombre: 'Producto de Prueba',
+                marca: 'Marca Test',
+                precio: 100.00,
+                stock: 10
+            };
+
+            // Simular selección de precio
+            const tipoPrecioId = 2;
+            const tipoPrecioNombre = 'Precio_Mayoreo';
+            const precio = 85.00;
+
+            cart.push({
+                ...product,
+                precio: precio,
+                cantidad: 1,
+                tipoPrecioId: tipoPrecioId,
+                tipoPrecioNombre: tipoPrecioNombre
+            });
+
+            document.getElementById('output').textContent = 'Producto agregado al carrito';
+            showCart();
+        }
+
+        function showCart() {
+            document.getElementById('output').textContent = JSON.stringify(cart, null, 2);
+        }
+
+        function testSendData() {
+            const saleData = {
+                items: cart,
+                subtotal: 85.00,
+                tax: 0,
+                total: 85.00,
+                paymentMethod: 'Efectivo',
+                amountReceived: 100.00,
+                vendedor: 'Test User'
+            };
+
+            document.getElementById('output').textContent = 
+                '=== DATOS QUE SE ENVIARÍAN ===\n' + 
+                JSON.stringify(saleData, null, 2);
+
+            console.log('Sale Data:', saleData);
+            console.log('Items:', saleData.items);
+            console.log('First item:', saleData.items[0]);
+            console.log('tipoPrecioId:', saleData.items[0].tipoPrecioId);
+            console.log('tipoPrecioNombre:', saleData.items[0].tipoPrecioNombre);
+        }
+    </script>
+</body>
+</html>
