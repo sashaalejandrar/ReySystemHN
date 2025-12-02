@@ -1,0 +1,30 @@
+<?php
+header('Content-Type: application/json');
+$conexion = new mysqli("localhost", "root", "", "tiendasrey");
+$conexion->set_charset("utf8mb4");
+
+$data = json_decode(file_get_contents('php://input'), true);
+$idDeuda = $data['idDeuda'] ?? '';
+$cambios = $data['cambios'] ?? [];
+
+if (!$idDeuda || !is_array($cambios)) {
+    echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
+    exit;
+}
+
+$res = $conexion->query("SELECT idDetalle FROM deudas_detalle WHERE idDeuda = '$idDeuda'");
+$ids = [];
+while ($row = $res->fetch_assoc()) {
+    $ids[] = $row['idDetalle'];
+}
+
+foreach ($cambios as $i => $cambio) {
+    $idDetalle = $ids[$i] ?? null;
+    if ($idDetalle) {
+        $cantidad = intval($cambio['cantidad']);
+        $precio = floatval($cambio['precio']);
+        $conexion->query("UPDATE deudas_detalle SET cantidad = $cantidad, precio = $precio WHERE idDetalle = $idDetalle");
+    }
+}
+
+echo json_encode(['success' => true]);

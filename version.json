@@ -1,0 +1,177 @@
+{
+    "version": "2.17.8",
+    "build": "20251202",
+    "release_date": "2025-12-01",
+    "codename": "QueenXL",
+    "changelog": [
+        {
+            "version": "2.17.8",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la estabilidad del sistema para prevenir errores inesperados",
+                "Se ha optimizado el acceso a los directorios para una navegación más rápida",
+                "Se ha corregido un problema de compatibilidad con sistemas de archivos",
+                "Se ha implementado una nueva función de verificación de integridad de datos",
+                "Se ha actualizado la interfaz de usuario para una experiencia más intuitiva",
+                "Se ha mejorado la gestión de permisos para un control más preciso",
+                "Se ha resuelto un problema de acceso a archivos en directorios superiores",
+                "Se ha optimizado el rendimiento general del sistema para una respuesta más rápida"
+            ]
+        },
+        {
+            "version": "2.10.6",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha actualizado el script de publicación para mejorar la eficiencia en la entrega de nuevas versiones.",
+                "La versión del software ha sido actualizada para reflejar los cambios más recientes.",
+                "Se ha optimizado el proceso de lanzamiento para reducir el tiempo de espera entre versiones.",
+                "El archivo de versión ha sido corregido para mostrar la información correctamente.",
+                "El script de publicación ha sido mejorado para evitar errores comunes.",
+                "La entrega de la nueva versión ha sido implementada con éxito.",
+                "Se ha corregido un problema menor en el script de publicación para garantizar la estabilidad.",
+                "La versión actual ha sido verificada para asegurar la compatibilidad con sistemas anteriores."
+            ]
+        },
+        {
+            "version": "2.10.5",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la eficiencia del proceso de publicación de versiones gracias a la actualización del script de lanzamiento.",
+                "La versión del software ha sido actualizada para reflejar los cambios realizados en la plataforma.",
+                "Se ha optimizado el manejo de metadatos en el archivo de versión para una mejor organización.",
+                "El proceso de lanzamiento ha sido simplificado y agilizado para reducir el tiempo de espera de los usuarios.",
+                "La compatibilidad del software con diferentes entornos ha sido corregida y mejorada para una experiencia más fluida.",
+                "Se ha implementado una nueva forma de controlar la versión del software para una mayor precisión y seguridad.",
+                "El script de publicación ha sido mejorado para manejar errores y excepciones de manera más efectiva.",
+                "La información de versión ahora se carga de manera más eficiente para reducir el tiempo de carga del software.",
+                "Se ha mejorado el sistema de auditoria."
+            ]
+        },
+        {
+            "version": "2.10.4",
+            "date": "2025-12-02",
+            "type": "minor",
+            "changes": [
+                "Se ha actualizado el script de publicación de lanzamientos para mejorar la eficiencia del proceso de entrega de nuevas versiones.",
+                "La información de versión se ha actualizado para reflejar los cambios más recientes en el software.",
+                "El proceso de lanzamiento de nuevas versiones ahora es más rápido y confiable.",
+                "Se han realizado ajustes internos para mejorar la calidad general del producto.",
+                "La versión actual refleja nuestro compromiso constante con la mejora y la innovación.",
+                "El manejo de versiones ha sido optimizado para ofrecer una mejor experiencia al usuario.",
+                "El script de publicación se ha revisado para minimizar posibles errores durante el lanzamiento.",
+                "La información de versión se mantiene actualizada para garantizar la transparencia y la confiabilidad del software."
+            ]
+        },
+        {
+            "version": "2.10.3",
+            "date": "2025-12-01",
+            "type": "minor",
+            "changes": [
+                "Correcciones de errores y mejoras de estabilidad",
+                "Optimizaciones de rendimiento del sistema",
+                "Mejoras en la experiencia de usuario",
+                "Actualizaciones de seguridad",
+                "Corrección de bugs menores"
+            ]
+        },
+        {
+            "version": "2.10.2",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Problema local con la actualización de la versión ahora si funciona todo esperemos xd esto es un salto de fe"
+            ]
+        },
+        {
+            "version": "2.10.1",
+            "date": "2025-12-01",
+            "type": "minor",
+            "changes": [
+                "Se arreglo el problema que versión.json no se actualiza"
+            ]
+        },
+        {
+            "version": "2.10.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se mejoro el sistema de updates",
+                "Se agregaron cambios importantes",
+                "Se arreglo la instalación de updates"
+            ]
+        },
+        {
+            "version": "2.9.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Hoy si se soluciono todo espero."
+            ]
+        },
+        {
+            "version": "2.8.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se modificaron todas las funciones en la app basicamente xd"
+            ]
+        },
+        {
+            "version": "2.7.0",
+            "date": "2025-12-01",
+            "type": "minor",
+            "changes": [
+                "Se mejoro hoy si por completo sistema de updates",
+                "Se agrego la subida y creación de tags con sus archivos",
+                "Ahora se mejorara la instalación de updates en archivos des actualizados o con versión menor."
+            ]
+        },
+        {
+            "version": "2.6.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se mejoro todo el sistema de actualizaciones y demás cuando funcione del todo correctamente me animo documentar updates"
+            ]
+        },
+        {
+            "version": "2.5.0",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Sistema de login multi-factor implementado",
+                "Soporte para llaves de seguridad WebAuthn\/FIDO2",
+                "Autenticación biométrica (huella, Face ID, Windows Hello)",
+                "PIN de seguridad de 4-6 dígitos",
+                "Dispositivos de confianza con cookies seguras",
+                "Integración completa con 2FA existente",
+                "Página de verificación unificada",
+                "Correcciones de sintaxis JavaScript",
+                "Mejoras en notificaciones con Alpine.js"
+            ]
+        },
+        {
+            "version": "2.4.0",
+            "date": "2025-11-20",
+            "type": "minor",
+            "changes": [
+                "Sistema de notificaciones mejorado",
+                "Modo oscuro completo",
+                "Mejoras de rendimiento"
+            ]
+        }
+    ],
+    "system_requirements": {
+        "php": ">=7.4",
+        "mysql": ">=5.7",
+        "extensions": [
+            "mysqli",
+            "json",
+            "session",
+            "openssl"
+        ]
+    }
+}

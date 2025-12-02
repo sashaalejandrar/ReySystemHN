@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test OCR - Diagnóstico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .error {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de Tesseract OCR</h1>
+        <p>Esta página prueba si Tesseract OCR está funcionando correctamente.</p>
+        
+        <button onclick="testTesseract()">Ejecutar Test</button>
+        
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        async function testTesseract() {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.textContent = 'Ejecutando test...';
+            resultadoDiv.className = '';
+            
+            try {
+                const response = await fetch('api/test_tesseract.php');
+                const data = await response.json();
+                
+                resultadoDiv.textContent = JSON.stringify(data, null, 2);
+                
+                if (data.codigo_retorno === 0 && data.texto_extraido) {
+                    resultadoDiv.className = '';
+                } else {
+                    resultadoDiv.className = 'error';
+                }
+            } catch (error) {
+                resultadoDiv.textContent = 'Error: ' + error.message;
+                resultadoDiv.className = 'error';
+            }
+        }
+    </script>
+</body>
+</html>

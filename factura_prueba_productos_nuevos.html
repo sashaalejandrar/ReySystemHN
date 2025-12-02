@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura de Prueba - Productos Nuevos</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .factura {
+            background: white;
+            width: 700px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid #000;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+
+        .empresa {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .linea {
+            border-top: 2px solid #000;
+            margin: 15px 0;
+        }
+
+        .linea-doble {
+            border-top: 3px double #000;
+            margin: 15px 0;
+        }
+
+        .info-factura {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .producto {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            margin: 12px 0;
+            line-height: 1.8;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .producto .codigo {
+            width: 140px;
+            font-weight: bold;
+        }
+
+        .producto .nombre {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .producto .cant {
+            width: 50px;
+            text-align: center;
+        }
+
+        .producto .precio {
+            width: 100px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .header-productos {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #000;
+        }
+
+        .header-productos .codigo {
+            width: 140px;
+        }
+
+        .header-productos .nombre {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .header-productos .cant {
+            width: 50px;
+            text-align: center;
+        }
+
+        .header-productos .precio {
+            width: 100px;
+            text-align: right;
+        }
+
+        .total {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 3px double #000;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .barcode {
+            font-family: 'Libre Barcode 128', cursive;
+            font-size: 48px;
+            letter-spacing: 0;
+            line-height: 1;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .instrucciones {
+                display: none;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="factura">
+        <h1>DISTRIBUIDORA CENTRAL</h1>
+        <div class="empresa">
+            RTN: 08011987654321<br>
+            Col. Kennedy, Tegucigalpa, Honduras<br>
+            Tel: 2234-5678 | Email: ventas@distcentral.hn
+        </div>
+
+        <div class="linea-doble"></div>
+
+        <div class="info-factura">
+            <div>
+                <strong>FACTURA:</strong> FC-2024-001523<br>
+                <strong>FECHA:</strong> 22/11/2024<br>
+                <strong>HORA:</strong> 14:30:00
+            </div>
+            <div style="text-align: right;">
+                <strong>CLIENTE:</strong> Tienda Rey<br>
+                <strong>RTN:</strong> 08019876543210<br>
+                <strong>VENDEDOR:</strong> Carlos Mejía
+            </div>
+        </div>
+
+        <div class="linea"></div>
+
+        <div class="header-productos">
+            <span class="codigo">CÓDIGO</span>
+            <span class="nombre">PRODUCTO</span>
+            <span class="cant">CANT</span>
+            <span class="precio">PRECIO</span>
+        </div>
+
+        <!-- Producto 1: Shampoo Pantene -->
+        <div class="producto">
+            <span class="codigo">7501001234567</span>
+            <span class="nombre">Shampoo Pantene 400ml</span>
+            <span class="cant">3</span>
+            <span class="precio">L85.50</span>
+        </div>
+
+        <!-- Producto 2: Detergente Ariel -->
+        <div class="producto">
+            <span class="codigo">7506339123456</span>
+            <span class="nombre">Detergente Ariel 1kg</span>
+            <span class="cant">2</span>
+            <span class="precio">L120.00</span>
+        </div>
+
+        <!-- Producto 3: Aceite Mazola -->
+        <div class="producto">
+            <span class="codigo">7501055312345</span>
+            <span class="nombre">Aceite Mazola 1L</span>
+            <span class="cant">4</span>
+            <span class="precio">L95.75</span>
+        </div>
+
+        <!-- Producto 4: Pasta Colgate -->
+        <div class="producto">
+            <span class="codigo">7509552123456</span>
+            <span class="nombre">Pasta Colgate 150g</span>
+            <span class="cant">5</span>
+            <span class="precio">L45.00</span>
+        </div>
+
+        <!-- Producto 5: Papel Higiénico Scott -->
+        <div class="producto">
+            <span class="codigo">7501032123456</span>
+            <span class="nombre">Papel Scott 4 rollos</span>
+            <span class="cant">6</span>
+            <span class="precio">L65.00</span>
+        </div>
+
+        <!-- Producto 6: Jabón Dove -->
+        <div class="producto">
+            <span class="codigo">7506195123456</span>
+            <span class="nombre">Jabon Dove 100g</span>
+            <span class="cant">8</span>
+            <span class="precio">L35.50</span>
+        </div>
+
+        <div class="linea"></div>
+
+        <div style="text-align: right; margin: 10px 0; font-size: 16px;">
+            <div>SUBTOTAL: L1,447.25</div>
+            <div>ISV (15%): L217.09</div>
+        </div>
+
+        <div class="total">
+            TOTAL: L1,664.34
+        </div>
+
+        <div class="linea-doble"></div>
+
+        <div class="footer">
+            <strong>CONDICIONES DE PAGO:</strong> Contado<br>
+            <strong>FORMA DE PAGO:</strong> Efectivo<br>
+            <br>
+            ¡Gracias por su compra!<br>
+            Distribuidora Central - Su socio comercial de confianza<br>
+            <br>
+            <div class="barcode">FC2024001523</div>
+        </div>
+    </div>
+</body>
+
+</html>

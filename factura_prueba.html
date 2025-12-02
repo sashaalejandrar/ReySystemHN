@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura de Prueba - Para OCR</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .factura {
+            background: white;
+            width: 600px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin: 0 0 10px 0;
+            border-bottom: 3px double #000;
+            padding-bottom: 10px;
+        }
+
+        .info {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .linea {
+            border-top: 1px solid #000;
+            margin: 15px 0;
+        }
+
+        .producto {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        .producto .nombre {
+            flex: 1;
+        }
+
+        .producto .cant {
+            width: 60px;
+            text-align: center;
+        }
+
+        .producto .precio {
+            width: 120px;
+            text-align: right;
+        }
+
+        .total {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 2px solid #000;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .instrucciones {
+            background: #fffacd;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed #ff6b6b;
+            border-radius: 5px;
+        }
+
+        .instrucciones h3 {
+            margin-top: 0;
+            color: #d63031;
+        }
+
+        .instrucciones ol {
+            margin: 10px 0;
+        }
+
+        .instrucciones li {
+            margin: 5px 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .instrucciones {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="factura" id="factura">
+            <h1>SUPER MERCADO LA ECONOMÍA</h1>
+            <div class="info">
+                RTN: 08011234567890<br>
+                Tegucigalpa, Honduras<br>
+                Tel: 2222-3333<br>
+                <br>
+                <strong>FACTURA #001-2024</strong><br>
+                Fecha: 22/11/2024
+            </div>
+
+            <div class="linea"></div>
+
+            <div class="producto">
+                <span class="nombre">Coca Cola 2L</span>
+                <span class="cant">2</span>
+                <span class="precio">L50.00</span>
+            </div>
+
+            <div class="producto">
+                <span class="nombre">Arroz Diana 5lb</span>
+                <span class="cant">1</span>
+                <span class="precio">L75.50</span>
+            </div>
+
+            <div class="producto">
+                <span class="nombre">Aceite Vegetal 1L</span>
+                <span class="cant">3</span>
+                <span class="precio">L120.00</span>
+            </div>
+
+            <div class="producto">
+                <span class="nombre">Frijoles Rojos 1lb</span>
+                <span class="cant">2</span>
+                <span class="precio">L45.00</span>
+            </div>
+
+            <div class="producto">
+                <span class="nombre">Azucar Blanca 2lb</span>
+                <span class="cant">1</span>
+                <span class="precio">L35.50</span>
+            </div>
+
+            <div class="producto">
+                <span class="nombre">Sal Marina 500g</span>
+                <span class="cant">1</span>
+                <span class="precio">L15.00</span>
+            </div>
+
+            <div class="total">
+                TOTAL: L341.00
+            </div>
+
+            <div class="linea"></div>
+
+            <div class="info" style="font-size: 12px;">
+                ¡Gracias por su compra!<br>
+                Vuelva pronto
+            </div>
+        </div>
+
+        <div class="instrucciones">
+            <h3>📸 Instrucciones para Probar el Sistema OCR</h3>
+            <ol>
+                <li><strong>Toma una captura de pantalla</strong> de la factura de arriba (solo la parte blanca)</li>
+                <li>Guarda la imagen en tu computadora</li>
+                <li>Abre <code>escanear_factura.php</code> en tu navegador</li>
+                <li>Click en "Subir Imagen" y selecciona la captura</li>
+                <li>Click en "Procesar con IA"</li>
+                <li>Deberías ver 6 productos detectados</li>
+            </ol>
+
+            <p><strong>💡 Consejo:</strong> Para mejores resultados, asegúrate de que la captura sea clara y solo
+                incluya la factura (fondo blanco).</p>
+
+            <p><strong>🖨️ Alternativa:</strong> También puedes imprimir esta página y tomarle una foto con tu móvil.
+            </p>
+
+            <button onclick="window.print()"
+                style="padding: 10px 20px; font-size: 16px; cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 5px;">
+                🖨️ Imprimir Factura
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

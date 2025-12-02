@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test WebSocket Detallado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #10b981;
+        }
+
+        .error {
+            background: #ef4444;
+        }
+
+        .warning {
+            background: #f59e0b;
+        }
+
+        .info {
+            background: #3b82f6;
+        }
+
+        #log {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #666;
+        }
+
+        .log-success {
+            border-left-color: #10b981;
+        }
+
+        .log-error {
+            border-left-color: #ef4444;
+        }
+
+        .log-info {
+            border-left-color: #3b82f6;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Test de Conexión WebSocket Detallado</h1>
+
+    <div id="status" class="status warning">Esperando...</div>
+
+    <div>
+        <button onclick="testConnection()">🔄 Probar Conexión</button>
+        <button onclick="clearLog()">🗑️ Limpiar Log</button>
+    </div>
+
+    <h3>Log de Eventos:</h3>
+    <div id="log"></div>
+
+    <script>
+        let socket = null;
+        const logDiv = document.getElementById('log');
+        const statusDiv = document.getElementById('status');
+
+        function addLog(msg, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${time}] ${msg}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${msg}`);
+        }
+
+        function updateStatus(msg, type) {
+            statusDiv.textContent = msg;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function clearLog() {
+            logDiv.innerHTML = '';
+            addLog('Log limpiado', 'info');
+        }
+
+        function testConnection() {
+            addLog('=== INICIANDO TEST DE CONEXIÓN ===', 'info');
+
+            // Verificar soporte de WebSocket
+            if (!window.WebSocket) {
+                addLog('❌ ERROR: Este navegador no soporta WebSocket', 'error');
+                updateStatus('❌ Navegador no compatible', 'error');
+                return;
+            }
+
+            addLog('✅ WebSocket soportado por el navegador', 'success');
+
+            // Cerrar conexión anterior si existe
+            if (socket) {
+                addLog('Cerrando conexión anterior...', 'info');
+                socket.close();
+                socket = null;
+            }
+
+            const wsUrl = 'ws://localhost:8080';
+            addLog(`Intentando conectar a: ${wsUrl}`, 'info');
+            updateStatus('🔄 Conectando...', 'warning');
+
+            try {
+                socket = new WebSocket(wsUrl);
+                addLog('Objeto WebSocket creado', 'success');
+
+                // Timeout de conexión
+                const connectionTimeout = setTimeout(() => {
+                    if (socket.readyState !== WebSocket.OPEN) {
+                        addLog('⏱️ TIMEOUT: La conexión tardó más de 5 segundos', 'error');
+                        socket.close();
+                    }
+                }, 5000);
+
+                socket.onopen = function (event) {
+                    clearTimeout(connectionTimeout);
+                    addLog('✅ ¡CONEXIÓN EXITOSA!', 'success');
+                    addLog(`Estado: ${getReadyStateText(socket.readyState)}`, 'success');
+                    updateStatus('✅ Conectado', 'success');
+
+                    // Enviar mensaje de prueba
+                    const testMsg = {
+                        type: 'login',
+                        userId: 999,
+                        userName: 'Usuario de Prueba'
+                    };
+                    addLog(`Enviando mensaje de login: ${JSON.stringify(testMsg)}`, 'info');
+                    socket.send(JSON.stringify(testMsg));
+                };
+
+                socket.onmessage = function (event) {
+                    addLog(`📩 Mensaje recibido: ${event.data}`, 'success');
+                    try {
+                        const data = JSON.parse(event.data);
+                        addLog(`   Tipo: ${data.type}`, 'info');
+                    } catch (e) {
+                        addLog(`   (No es JSON válido)`, 'info');
+                    }
+                };
+
+                socket.onerror = function (error) {
+                    addLog(`❌ ERROR en WebSocket: ${error}`, 'error');
+                    addLog(`   Tipo de error: ${error.type}`, 'error');
+                    addLog(`   Estado actual: ${getReadyStateText(socket.readyState)}`, 'error');
+                    updateStatus('❌ Error de conexión', 'error');
+                };
+
+                socket.onclose = function (event) {
+                    clearTimeout(connectionTimeout);
+                    addLog(`🔴 Conexión cerrada`, 'error');
+                    addLog(`   Código: ${event.code}`, 'error');
+                    addLog(`   Razón: ${event.reason || 'No especificada'}`, 'error');
+                    addLog(`   ¿Limpia?: ${event.wasClean ? 'Sí' : 'No'}`, 'error');
+                    updateStatus('🔴 Desconectado', 'error');
+
+                    // Decodificar código de cierre
+                    const closeReason = getCloseReason(event.code);
+                    addLog(`   Significado: ${closeReason}`, 'info');
+                };
+
+            } catch (e) {
+                addLog(`❌ EXCEPCIÓN al crear WebSocket: ${e.message}`, 'error');
+                addLog(`   Stack: ${e.stack}`, 'error');
+                updateStatus('❌ Error crítico', 'error');
+            }
+        }
+
+        function getReadyStateText(state) {
+            const states = {
+                0: 'CONNECTING (0)',
+                1: 'OPEN (1)',
+                2: 'CLOSING (2)',
+                3: 'CLOSED (3)'
+            };
+            return states[state] || `UNKNOWN (${state})`;
+        }
+
+        function getCloseReason(code) {
+            const reasons = {
+                1000: 'Normal closure',
+                1001: 'Going away',
+                1002: 'Protocol error',
+                1003: 'Unsupported data',
+                1005: 'No status received',
+                1006: 'Abnormal closure (no close frame)',
+                1007: 'Invalid frame payload data',
+                1008: 'Policy violation',
+                1009: 'Message too big',
+                1010: 'Missing extension',
+                1011: 'Internal server error',
+                1015: 'TLS handshake failure'
+            };
+            return reasons[code] || `Unknown code (${code})`;
+        }
+
+        // Auto-test al cargar
+        addLog('Página cargada. Presiona "Probar Conexión" para iniciar.', 'info');
+        addLog(`Navegador: ${navigator.userAgent}`, 'info');
+
+        // Test automático después de 1 segundo
+        setTimeout(testConnection, 1000);
+    </script>
+</body>
+
+</html>

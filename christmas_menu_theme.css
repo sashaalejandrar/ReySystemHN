@@ -1,0 +1,108 @@
+/* Christmas Theme Styles for Menu Lateral */
+
+/* Estilos globales para botones de categoría */
+.menu-category button {
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.menu-category button:hover {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(22, 163, 74, 0.15) 100%) !important;
+    transform: translateX(4px);
+}
+
+.menu-category button .w-8 {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-category button span,
+.menu-category button p {
+    color: white !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Estilos para enlaces dentro de submenús */
+.menu-category a {
+    transition: all 0.3s ease;
+}
+
+.menu-category a:hover {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%) !important;
+    transform: translateX(2px);
+    border-left: 2px solid rgba(234, 179, 8, 0.5);
+}
+
+.menu-category a span,
+.menu-category a {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.menu-category a:hover span,
+.menu-category a:hover {
+    color: #fbbf24 !important;
+}
+
+/* Enlaces directos (sin categoría) */
+aside > div > nav > a {
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+aside > div > nav > a:hover {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(22, 163, 74, 0.15) 100%) !important;
+    transform: translateX(4px);
+    border-left-color: rgba(234, 179, 8, 0.5);
+}
+
+aside > div > nav > a span,
+aside > div > nav > a p {
+    color: white !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Botón de logout con tema navideño */
+aside > div:last-child a {
+    transition: all 0.3s ease;
+}
+
+aside > div:last-child a:hover {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(153, 27, 27, 0.2) 100%) !important;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+aside > div:last-child a span,
+aside > div:last-child a p {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Animación de brillo para elementos activos */
+@keyframes christmas-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
+    }
+}
+
+/* Scrollbar navideño */
+aside::-webkit-scrollbar {
+    width: 8px;
+}
+
+aside::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+aside::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #dc2626 0%, #16a34a 100%);
+    border-radius: 4px;
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #b91c1c 0%, #15803d 100%);
+}
