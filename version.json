@@ -1,9 +1,24 @@
 {
-    "version": "2.17.16",
+    "version": "2.17.17",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "XDpLUS",
+    "codename": "COlinitis",
     "changelog": [
+        {
+            "version": "2.17.17",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la estabilidad del sistema al resolver problemas de acceso a directorios",
+                "Se ha optimizado la seguridad del repositorio para prevenir accesos no autorizados",
+                "Se ha actualizado la configuración global para incluir excepciones de directorios seguros",
+                "Se ha corregido un error que impedía el acceso a versiones anteriores del sistema",
+                "Se ha implementado una nueva forma de manejar los directorios para evitar conflictos de permisos",
+                "Se ha mejorado la capacidad del sistema para detectar y solucionar problemas de acceso a archivos",
+                "Se ha optimizado el rendimiento del sistema al reducir los errores de acceso a directorios",
+                "Se ha aumentado la confiabilidad del sistema al resolver problemas de integridad de datos"
+            ]
+        },
         {
             "version": "2.17.16",
             "date": "2025-12-02",
