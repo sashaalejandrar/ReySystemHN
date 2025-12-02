@@ -1,9 +1,17 @@
 {
-    "version": "2.17.19",
+    "version": "2.17.20",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "TImmy Turner",
+    "codename": "CocoNut AI",
     "changelog": [
+        {
+            "version": "2.17.20",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se agrego NovaRey Agent paraa manejo y consultas del sistema asi como otros fixes."
+            ]
+        },
         {
             "version": "2.17.19",
             "date": "2025-12-02",
