@@ -1,9 +1,24 @@
 {
-    "version": "2.17.8",
+    "version": "2.17.9",
     "build": "20251202",
-    "release_date": "2025-12-01",
-    "codename": "QueenXL",
+    "release_date": "2025-12-02",
+    "codename": "SuperCaesar",
     "changelog": [
+        {
+            "version": "2.17.9",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la detección de problemas de permisos en el sistema de archivos para evitar errores inesperados",
+                "Se ha optimizado el acceso a archivos y directorios para mejorar la estabilidad general del sistema",
+                "Se ha actualizado la configuración de seguridad para permitir una mayor flexibilidad en la gestión de directorios",
+                "Se ha corregido un problema de acceso a archivos antiguos que impedía la visualización de registros históricos",
+                "Se ha implementado una nueva política de seguridad para evitar accesos no autorizados al sistema",
+                "Se ha mejorado la compatibilidad con diferentes sistemas de archivos para reducir errores y conflictos",
+                "Se ha optimizado el rendimiento del sistema al acceder a directorios y archivos para mejorar la experiencia del usuario",
+                "Se ha actualizado la detección de errores para proporcionar mensajes más claros y útiles en caso de problemas"
+            ]
+        },
         {
             "version": "2.17.8",
             "date": "2025-12-01",
