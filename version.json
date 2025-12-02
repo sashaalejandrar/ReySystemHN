@@ -1,9 +1,24 @@
 {
-    "version": "2.17.18",
+    "version": "2.17.19",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "Deluxe",
+    "codename": "TImmy Turner",
     "changelog": [
+        {
+            "version": "2.17.19",
+            "date": "2025-12-02",
+            "type": "minor",
+            "changes": [
+                "Se ha mejorado la compatibilidad con sistemas de archivos para evitar problemas de permisos y propietarios",
+                "Se ha optimizado la configuración de seguridad para permitir la ejecución en directorios específicos",
+                "Se ha actualizado la detección de errores para proporcionar mensajes más claros y útiles en caso de problemas",
+                "Se ha corregido un problema de acceso a archivos que impedía la visualización de versiones anteriores",
+                "Se ha implementado una solución para evitar errores de autenticación en directorios específicos",
+                "Se ha mejorado la estabilidad del sistema para reducir la probabilidad de errores y fallos",
+                "Se ha optimizado el rendimiento del sistema para mejorar la velocidad y eficiencia en la ejecución de tareas",
+                "Se ha actualizado el manejo de excepciones para proporcionar una experiencia de usuario más fluida y segura"
+            ]
+        },
         {
             "version": "2.17.18",
             "date": "2025-12-02",
