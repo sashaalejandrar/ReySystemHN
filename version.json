@@ -1,9 +1,24 @@
 {
-    "version": "2.17.15",
+    "version": "2.17.16",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "CDiskette",
+    "codename": "XDpLUS",
     "changelog": [
+        {
+            "version": "2.17.16",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la seguridad del acceso a los directorios del sistema para evitar problemas de permisos",
+                "Se ha optimizado la configuración de Git para evitar errores de autenticación en el directorio de trabajo",
+                "Se ha corregido un problema de acceso a los históricos de commits para mejorar la experiencia del usuario",
+                "Se ha implementado una excepción de seguridad para el directorio de trabajo actual para evitar errores de acceso",
+                "Se ha actualizado la gestión de directorios para mejorar la estabilidad y el rendimiento del sistema",
+                "Se ha resuelto un problema de compatibilidad con la versión anterior para asegurar una transición suave",
+                "Se ha mejorado la detección de errores para proporcionar mensajes más claros y útiles al usuario",
+                "Se ha optimizado el proceso de actualización para reducir el tiempo de inactividad del sistema"
+            ]
+        },
         {
             "version": "2.17.15",
             "date": "2025-12-02",
