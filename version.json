@@ -1,9 +1,24 @@
 {
-    "version": "2.10.5",
+    "version": "2.10.6",
     "build": "20251202",
-    "release_date": "2025-12-01",
-    "codename": "Venom",
+    "release_date": "2025-12-02",
+    "codename": "TREX",
     "changelog": [
+        {
+            "version": "2.10.6",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha actualizado el script de publicación para mejorar la eficiencia en la entrega de nuevas versiones.",
+                "La versión del software ha sido actualizada para reflejar los cambios más recientes.",
+                "Se ha optimizado el proceso de lanzamiento para reducir el tiempo de espera entre versiones.",
+                "El archivo de versión ha sido corregido para mostrar la información correctamente.",
+                "El script de publicación ha sido mejorado para evitar errores comunes.",
+                "La entrega de la nueva versión ha sido implementada con éxito.",
+                "Se ha corregido un problema menor en el script de publicación para garantizar la estabilidad.",
+                "La versión actual ha sido verificada para asegurar la compatibilidad con sistemas anteriores."
+            ]
+        },
         {
             "version": "2.10.5",
             "date": "2025-12-01",
