@@ -1,9 +1,24 @@
 {
-    "version": "2.17.12",
+    "version": "2.17.13",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "KillBill",
+    "codename": "BabyQueen",
     "changelog": [
+        {
+            "version": "2.17.13",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la estabilidad del sistema al solucionar un problema de acceso a directorios.",
+                "Se ha optimizado la configuración de seguridad para evitar advertencias de acceso no autorizado.",
+                "Se ha actualizado la compatibilidad con sistemas de archivos para mejorar la integridad de los datos.",
+                "Se ha corregido un error que impedía el acceso a versiones anteriores del sistema.",
+                "Se ha implementado una solución para evitar problemas de propiedad en el repositorio.",
+                "Se ha mejorado la detección de errores para proporcionar mensajes más claros y útiles.",
+                "Se ha optimizado el rendimiento al reducir los mensajes de advertencia innecesarios.",
+                "Se ha actualizado la gestión de permisos para mejorar la seguridad y la estabilidad del sistema."
+            ]
+        },
         {
             "version": "2.17.12",
             "date": "2025-12-02",
