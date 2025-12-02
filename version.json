@@ -1,9 +1,25 @@
 {
-    "version": "2.10.4",
+    "version": "2.10.5",
     "build": "20251202",
-    "release_date": "2025-12-02",
-    "codename": "Yupitin",
+    "release_date": "2025-12-01",
+    "codename": "Venom",
     "changelog": [
+        {
+            "version": "2.10.5",
+            "date": "2025-12-01",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la eficiencia del proceso de publicación de versiones gracias a la actualización del script de lanzamiento.",
+                "La versión del software ha sido actualizada para reflejar los cambios realizados en la plataforma.",
+                "Se ha optimizado el manejo de metadatos en el archivo de versión para una mejor organización.",
+                "El proceso de lanzamiento ha sido simplificado y agilizado para reducir el tiempo de espera de los usuarios.",
+                "La compatibilidad del software con diferentes entornos ha sido corregida y mejorada para una experiencia más fluida.",
+                "Se ha implementado una nueva forma de controlar la versión del software para una mayor precisión y seguridad.",
+                "El script de publicación ha sido mejorado para manejar errores y excepciones de manera más efectiva.",
+                "La información de versión ahora se carga de manera más eficiente para reducir el tiempo de carga del software.",
+                "Se ha mejorado el sistema de auditoria."
+            ]
+        },
         {
             "version": "2.10.4",
             "date": "2025-12-02",
