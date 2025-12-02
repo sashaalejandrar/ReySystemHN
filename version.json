@@ -1,9 +1,24 @@
 {
-    "version": "2.10.6",
+    "version": "2.10.7",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "TREX",
+    "codename": "Xelenium",
     "changelog": [
+        {
+            "version": "2.10.7",
+            "date": "2025-12-02",
+            "type": "minor",
+            "changes": [
+                "Se ha actualizado el script de publicación de lanzamientos para mejorar la eficiencia en el proceso de deploy.",
+                "El archivo de configuración de versión ha sido corregido para reflejar la versión actual del software de manera precisa.",
+                "La herramienta de lanzamiento ha sido optimizada para reducir el tiempo de espera en la publicación de nuevas versiones.",
+                "Se ha implementado una mejora en la gestión de versiones para facilitar el seguimiento de cambios en el software.",
+                "El proceso de actualización de versiones ha sido mejorado para ofrecer una experiencia más fluida al usuario.",
+                "La información de versión se carga de forma más eficiente en el sistema, lo que reduce los tiempos de carga.",
+                "Se ha corregido un error en la presentación de la información de versión, para que se muestre de manera clara y concisa.",
+                "El script de publicación ahora se ejecuta de forma más estable y segura, gracias a las últimas actualizaciones."
+            ]
+        },
         {
             "version": "2.10.6",
             "date": "2025-12-02",
