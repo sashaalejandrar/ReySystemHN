@@ -1,9 +1,24 @@
 {
-    "version": "2.17.11",
+    "version": "2.17.12",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "McQueen",
+    "codename": "KillBill",
     "changelog": [
+        {
+            "version": "2.17.12",
+            "date": "2025-12-02",
+            "type": "minor",
+            "changes": [
+                "Se ha mejorado la estabilidad del sistema al resolverser problemas de acceso a directorios",
+                "Se ha optimizado la configuración de Git para evitar errores de acceso a archivos",
+                "Se ha actualizado la compatibilidad con diferentes versiones de Git para evitar conflictos",
+                "Se ha corregido un error que impedía el acceso a commits anteriores en el repositorio",
+                "Se ha implementado una excepción de seguridad para permitir el acceso a directorios específicos",
+                "Se ha mejorado la capacidad del sistema para manejar errores de acceso a archivos y directorios",
+                "Se ha optimizado la velocidad de acceso a los registros de cambios en el repositorio",
+                "Se ha actualizado la información de depuración para ayudar a identificar y solucionar problemas de forma más eficiente"
+            ]
+        },
         {
             "version": "2.17.11",
             "date": "2025-12-02",
