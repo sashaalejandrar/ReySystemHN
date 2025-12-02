@@ -1,9 +1,24 @@
 {
-    "version": "2.17.9",
+    "version": "2.17.10",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "SuperCaesar",
+    "codename": "KingXL",
     "changelog": [
+        {
+            "version": "2.17.10",
+            "date": "2025-12-02",
+            "type": "minor",
+            "changes": [
+                "Se ha mejorado la seguridad del sistema para evitar accesos no autorizados a los directorios del proyecto",
+                "Se ha optimizado la configuración de Git para evitar errores de ownership en el repositorio",
+                "Se ha actualizado la compatibilidad con versiones anteriores para reducir los errores de acceso a los registros",
+                "Se ha corregido un problema de acceso a los archivos de versión anterior para mejorar la estabilidad",
+                "Se ha implementado una nueva funcionalidad para agilizar la resolución de conflictos de acceso a los directorios",
+                "Se ha mejorado la detección de errores para proporcionar mensajes más claros y útiles a los usuarios",
+                "Se ha optimizado el rendimiento del sistema para reducir los tiempos de carga y espera",
+                "Se ha actualizado la gestión de permisos para evitar problemas de acceso no autorizado a los archivos y directorios del proyecto"
+            ]
+        },
         {
             "version": "2.17.9",
             "date": "2025-12-02",
