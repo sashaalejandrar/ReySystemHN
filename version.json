@@ -1,9 +1,24 @@
 {
-    "version": "2.17.10",
+    "version": "2.17.11",
     "build": "20251202",
     "release_date": "2025-12-02",
-    "codename": "KingXL",
+    "codename": "McQueen",
     "changelog": [
+        {
+            "version": "2.17.11",
+            "date": "2025-12-02",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la seguridad de acceso a los directorios para evitar problemas de permisos",
+                "Se ha optimizado la configuración global para admitir directorios con propietarios dudosos",
+                "Se ha actualizado el manejo de excepciones para directorios con acceso restringido",
+                "Se ha corregido un error que impedía el acceso a commits anteriores en el repositorio",
+                "Se ha implementado una nueva configuración para admitir directorios con propietarios no estándar",
+                "Se ha mejorado la estabilidad del sistema al acceder a directorios con permisos especiales",
+                "Se ha resuelto un problema de acceso a commits antiguos que generaba un error de acceso",
+                "Se ha optimizado el rendimiento al acceder a directorios con un gran número de archivos"
+            ]
+        },
         {
             "version": "2.17.10",
             "date": "2025-12-02",
