@@ -1,9 +1,21 @@
 {
-    "version": "2.17.20",
-    "build": "20251202",
-    "release_date": "2025-12-02",
-    "codename": "CocoNut AI",
+    "version": "2.17.21",
+    "build": "20251203",
+    "release_date": "2025-12-03",
+    "codename": "MistralXd",
     "changelog": [
+        {
+            "version": "2.17.21",
+            "date": "2025-12-03",
+            "type": "minor",
+            "changes": [
+                "Correcciones de errores y mejoras de estabilidad",
+                "Optimizaciones de rendimiento del sistema",
+                "Mejoras en la experiencia de usuario",
+                "Actualizaciones de seguridad",
+                "Corrección de bugs menores"
+            ]
+        },
         {
             "version": "2.17.20",
             "date": "2025-12-02",
