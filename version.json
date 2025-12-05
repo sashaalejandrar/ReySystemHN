@@ -1,9 +1,24 @@
 {
-    "version": "2.17.22",
-    "build": "20251203",
-    "release_date": "2025-12-03",
-    "codename": "AsKetchup",
+    "version": "2.17.23",
+    "build": "20251205",
+    "release_date": "2025-12-05",
+    "codename": "Colombus",
     "changelog": [
+        {
+            "version": "2.17.23",
+            "date": "2025-12-05",
+            "type": "major",
+            "changes": [
+                "Se ha mejorado la configuración de seguridad para evitar problemas de acceso a directorios",
+                "Se ha optimizado el proceso de actualización para evitar errores de acceso a archivos antiguos",
+                "Se ha corregido un problema de permisos que afectaba la estabilidad del sistema",
+                "Se ha implementado una excepción de seguridad para el directorio de trabajo actual",
+                "Se ha actualizado la forma en que se gestionan los directorios para evitar errores de propiedad",
+                "Se ha mejorado la compatibilidad con diferentes versiones de Git para evitar problemas de acceso",
+                "Se ha optimizado el rendimiento al acceder a archivos y directorios para mejorar la velocidad del sistema",
+                "Se ha solucionado un problema que impedía el acceso a versiones antiguas de los archivos en el sistema"
+            ]
+        },
         {
             "version": "2.17.22",
             "date": "2025-12-03",
